@@ -61,7 +61,7 @@ DATABASES = {
         'NAME': 'rsoi_center_sys',
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '',
     }
 }
