@@ -39,8 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'catalog',
     'xml_rpc_server',
+    'catalog',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -93,4 +93,4 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'media')
 MEDIA_URL = '/media/'
 
-XMLRPC_METHODS = (('xml_rpc_server.views.multiply', 'multiply'),)
+XMLRPC_METHODS = (('xml_rpc_server.views.get_cars', 'get_cars'),)

@@ -17,14 +17,6 @@ CLASS_CHOICE = (
     ('h', u'Бизнес класс'),
 )
 
-class Tariff(models.Model):
-    name = models.CharField(max_length=50, verbose_name=u'Название тарифа')
-    min_days = models.IntegerField(verbose_name=u'Минимальное количетсво дней')
-    max_days = models.IntegerField(verbose_name=u'Максимальное количетсво дней')
-    
-    def __unicode__(self):
-        return self.name
-    
 class Brand(models.Model):
     brand_name = models.CharField(max_length=50, verbose_name=u'Название бренда')
 
