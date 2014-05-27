@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -59,7 +58,7 @@ WSGI_APPLICATION = 'center_sys.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rsoi_center_sys',
+        'NAME': os.environ.get('DATABASE_NAME', 'rsoi_center_sys'),
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',

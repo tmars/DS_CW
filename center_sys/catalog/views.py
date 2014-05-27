@@ -5,7 +5,7 @@ from form import SearchForm
 
 from django.http import HttpResponse
 
-import xmlrpclib
+import conn
 
 def index(request):
     kwargs = {}
@@ -22,9 +22,13 @@ def index(request):
     else:
         form = SearchForm()
     
-    rpc_srv = xmlrpclib.ServerProxy("http://localhost:1300/xmlrpc/")
-    car_list = rpc_srv.get_cars(kwargs)
-            
+    try:
+        rpc_srv = conn.TimeoutServerProxy('http://localhost:1300/xmlrpc/', timeout=2)
+        car_list = rpc_srv.get_cars(kwargs)
+    except:
+        car_list = []
+        pass
+    
     paginator = Paginator(car_list, 2)
     page = request.GET.get('page')
     try:

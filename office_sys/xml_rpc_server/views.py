@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from catalog.models import Car
 import sys
+import time
 
-p = dir()
 def get_cars(kwargs):
     res = []
+    #time.sleep(5)
     for car in Car.objects.filter(**kwargs):
         res.append({
             'id': car.id,

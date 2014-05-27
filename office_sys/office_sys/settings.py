@@ -63,7 +63,7 @@ WSGI_APPLICATION = 'office_sys.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rsoi_office_sys',
+        'NAME': os.environ.get('DATABASE_NAME', 'rsoi_office_sys1'),
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',

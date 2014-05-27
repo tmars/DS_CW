@@ -7,8 +7,9 @@
 {% if car_list %}
     {% for car in car_list %}
         <div>
-        <img src="{{MEDIA_URL }}{{ car.image }}"><br>
+        <img src="{{ car.image }}"><br>
         <a href="{% url 'detail' car.id %}">{{ car.name }}</a>
+        <b>${{ car.tarifs.0 }} за сутки</b>
         </div>
     {% endfor %}
     
