@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import sys
+import xml_rpc
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -89,3 +90,5 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'media')
 MEDIA_URL = '/media/'
+
+XMLRPC_METHODS = ((xml_rpc.multiply, 'multiply'),)
