@@ -2,7 +2,6 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 import settings
 from catalog import views
-import xml_rpc
 
 admin.autodiscover()
 

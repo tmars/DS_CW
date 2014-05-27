@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import sys
-import xml_rpc
+import xml_rpc_server
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog',
+    'xml_rpc_server',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -91,4 +93,4 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'media')
 MEDIA_URL = '/media/'
 
-XMLRPC_METHODS = ((xml_rpc.multiply, 'multiply'),)
+XMLRPC_METHODS = (('xml_rpc_server.views.multiply', 'multiply'),)
