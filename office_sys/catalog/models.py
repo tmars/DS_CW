@@ -1,6 +1,9 @@
 #coding=utf8
 
 from django.db import models
+import os
+
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 BODY_CHOICE = (
     ('u', u'Универсал'),

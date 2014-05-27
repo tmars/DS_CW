@@ -127,7 +127,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$12000$ERJNGGv5xCNE$hza0kQ+H6p9rDxAzmbQcim72QmsYBaCuD1HHctas+6Q=','2014-05-26 20:49:36',1,'marcky','','','t.mars@mail.ru',1,1,'2014-05-26 12:51:38');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$12000$ERJNGGv5xCNE$hza0kQ+H6p9rDxAzmbQcim72QmsYBaCuD1HHctas+6Q=','2014-05-27 09:17:08',1,'marcky','','','t.mars@mail.ru',1,1,'2014-05-26 12:51:38');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,7 +242,7 @@ CREATE TABLE `catalog_car` (
 
 LOCK TABLES `catalog_car` WRITE;
 /*!40000 ALTER TABLE `catalog_car` DISABLE KEYS */;
-INSERT INTO `catalog_car` VALUES (1,'R8','2014-05-26 13:12:18','u','l','images/cars/54912_2.jpg',1,10,9,8,7);
+INSERT INTO `catalog_car` VALUES (1,'R8','2014-05-26 13:12:18','u','l','images/cars/audi-r8.jpg',1,10,9,8,7);
 /*!40000 ALTER TABLE `catalog_car` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,7 +292,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_37ef4eb4` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_93d2d1f8` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `user_id_refs_id_c0d12874` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,7 +301,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2014-05-26 13:12:31',1,7,'1','Car object',1,''),(2,'2014-05-26 13:31:52',1,7,'1','Audi R8',2,'Изменен image.'),(3,'2014-05-26 13:32:45',1,7,'1','Audi R8',2,'Изменен image.'),(4,'2014-05-26 13:33:38',1,7,'1','Audi R8',2,'Изменен image.'),(5,'2014-05-26 13:36:26',1,7,'1','Audi R8',2,'Изменен image.'),(6,'2014-05-26 13:37:03',1,7,'1','Audi R8',2,'Изменен image.'),(7,'2014-05-26 13:43:09',1,7,'1','Audi R8',2,'Изменен image.'),(8,'2014-05-26 14:10:25',1,8,'1','Brand object',1,''),(9,'2014-05-26 14:13:02',1,7,'1','1 R8',2,'Изменен brand.'),(10,'2014-05-26 14:13:39',1,7,'1','Audi R8',2,'Ни одно поле не изменено.'),(11,'2014-05-26 14:13:49',1,8,'2','BMW',1,''),(12,'2014-05-26 14:13:52',1,8,'3','Ford',1,''),(13,'2014-05-26 14:13:55',1,8,'4','Honda',1,''),(14,'2014-05-26 14:13:57',1,8,'5','Lexus',1,''),(15,'2014-05-26 14:14:00',1,8,'6','Kia',1,''),(16,'2014-05-26 14:14:03',1,8,'7','Nissan',1,''),(17,'2014-05-26 14:14:06',1,8,'8','Mazda',1,''),(18,'2014-05-26 14:14:08',1,8,'9','Skoda',1,''),(19,'2014-05-26 14:14:11',1,8,'10','Renault',1,''),(20,'2014-05-26 14:14:14',1,8,'11','Infinity',1,''),(21,'2014-05-26 14:14:17',1,8,'12','Hyundai',1,''),(22,'2014-05-26 14:14:20',1,8,'13','Fiat',1,''),(23,'2014-05-26 14:16:24',1,7,'1','Audi R8',2,'Ни одно поле не изменено.'),(24,'2014-05-26 14:26:43',1,9,'1','Тариф на сутки',1,''),(25,'2014-05-26 14:27:03',1,9,'2','Тариф на период от 3 до 15 суток',1,''),(26,'2014-05-26 14:27:20',1,9,'3','Тариф на период от 15 до 30 суток',1,''),(27,'2014-05-26 14:33:19',1,7,'1','Audi R8',2,'Изменен tarif1.'),(28,'2014-05-26 14:36:33',1,7,'1','Audi R8',2,'Изменен tarif1,tarif2,tarif3 и tarif4.');
+INSERT INTO `django_admin_log` VALUES (1,'2014-05-26 13:12:31',1,7,'1','Car object',1,''),(2,'2014-05-26 13:31:52',1,7,'1','Audi R8',2,'Изменен image.'),(3,'2014-05-26 13:32:45',1,7,'1','Audi R8',2,'Изменен image.'),(4,'2014-05-26 13:33:38',1,7,'1','Audi R8',2,'Изменен image.'),(5,'2014-05-26 13:36:26',1,7,'1','Audi R8',2,'Изменен image.'),(6,'2014-05-26 13:37:03',1,7,'1','Audi R8',2,'Изменен image.'),(7,'2014-05-26 13:43:09',1,7,'1','Audi R8',2,'Изменен image.'),(8,'2014-05-26 14:10:25',1,8,'1','Brand object',1,''),(9,'2014-05-26 14:13:02',1,7,'1','1 R8',2,'Изменен brand.'),(10,'2014-05-26 14:13:39',1,7,'1','Audi R8',2,'Ни одно поле не изменено.'),(11,'2014-05-26 14:13:49',1,8,'2','BMW',1,''),(12,'2014-05-26 14:13:52',1,8,'3','Ford',1,''),(13,'2014-05-26 14:13:55',1,8,'4','Honda',1,''),(14,'2014-05-26 14:13:57',1,8,'5','Lexus',1,''),(15,'2014-05-26 14:14:00',1,8,'6','Kia',1,''),(16,'2014-05-26 14:14:03',1,8,'7','Nissan',1,''),(17,'2014-05-26 14:14:06',1,8,'8','Mazda',1,''),(18,'2014-05-26 14:14:08',1,8,'9','Skoda',1,''),(19,'2014-05-26 14:14:11',1,8,'10','Renault',1,''),(20,'2014-05-26 14:14:14',1,8,'11','Infinity',1,''),(21,'2014-05-26 14:14:17',1,8,'12','Hyundai',1,''),(22,'2014-05-26 14:14:20',1,8,'13','Fiat',1,''),(23,'2014-05-26 14:16:24',1,7,'1','Audi R8',2,'Ни одно поле не изменено.'),(24,'2014-05-26 14:26:43',1,9,'1','Тариф на сутки',1,''),(25,'2014-05-26 14:27:03',1,9,'2','Тариф на период от 3 до 15 суток',1,''),(26,'2014-05-26 14:27:20',1,9,'3','Тариф на период от 15 до 30 суток',1,''),(27,'2014-05-26 14:33:19',1,7,'1','Audi R8',2,'Изменен tarif1.'),(28,'2014-05-26 14:36:33',1,7,'1','Audi R8',2,'Изменен tarif1,tarif2,tarif3 и tarif4.'),(29,'2014-05-27 09:19:49',1,7,'1','Audi R8',2,'Изменен image.'),(30,'2014-05-27 09:22:05',1,7,'1','Audi R8',2,'Изменен image.'),(31,'2014-05-27 09:25:27',1,7,'1','Audi R8',2,'Изменен image.'),(32,'2014-05-27 09:34:21',1,7,'1','Audi R8',2,'Изменен image.');
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,7 +354,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('fm1d6y98hdpk06aub0hr3i2h9vfz949u','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:49:36'),('hv7xhy67khozs3slgvg1utdu1i6lsjf4','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:11:20'),('uxq3pi1n10piwy4mqlmbdv8m1e2oh0yh','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 13:11:01');
+INSERT INTO `django_session` VALUES ('0j6aq257zcu891befr8zpy8bnzvj862i','YTBkZjdkNTI5MjBkMmEwYzc5NTRmN2E1M2M4ODdiOTdkOTYzNzMyZDp7fQ==','2014-06-10 09:16:53'),('6p3f4h4288g8spl01q24kyg5kuht1oii','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-10 09:17:08'),('d17yixohai9pywsekwh486ij6wftam71','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:23:11'),('fm1d6y98hdpk06aub0hr3i2h9vfz949u','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:49:36'),('hv7xhy67khozs3slgvg1utdu1i6lsjf4','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:11:20'),('uxq3pi1n10piwy4mqlmbdv8m1e2oh0yh','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 13:11:01');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -367,4 +367,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-26 23:50:41
+-- Dump completed on 2014-05-27 13:34:45
