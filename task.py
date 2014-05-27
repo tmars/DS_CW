@@ -4,7 +4,8 @@ import sys
 
 nodes = [
     {'nd': 'center_sys', 'pt': '1301', 'db': 'rsoi_center_sys'},
-    {'nd': 'office_sys', 'pt': '1302', 'db': 'rsoi_office_sys1'}
+    {'nd': 'office_sys', 'pt': '1302', 'db': 'rsoi_office_sys1'},
+    {'nd': 'office_sys', 'pt': '1303', 'db': 'rsoi_office_sys2'},
 ]
 
 if __name__ == "__main__":
@@ -23,4 +24,5 @@ if __name__ == "__main__":
             os.system('mysql -u root --execute="CREATE DATABASE %s"' % (node['db']))
             os.system('mysql -u root -D %s < db/%s.sql' % (node['db'], node['db']))
             
-    
+    else:
+        print "Error command."
