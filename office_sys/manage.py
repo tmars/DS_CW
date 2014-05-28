@@ -5,6 +5,7 @@ import sys
 os.sys.path.insert(0,os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import task
 import lib.conn as conn
+from lib.inbox import Inbox
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "office_sys.settings")
@@ -17,15 +18,17 @@ if __name__ == "__main__":
             flag = rpc_srv.register_office(task.get("NAME"), task.get("URL"))
             
         except Exception, exp:
-            print "ERROR: " + str(exp)
-            pass
+            print "Error connection with center: " + str(exp)
+
     else:
         os.environ.setdefault("NODE_IND", "office1")
         flag = True
-        
         
     if flag:
         from django.core.management import execute_from_command_line
         
         execute_from_command_line(sys.argv)
+        
+        
+
         

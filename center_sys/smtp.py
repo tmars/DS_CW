@@ -1,9 +1,15 @@
+import os
+import sys
+os.sys.path.insert(0,os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from lib.inbox import Inbox
 
 inbox = Inbox()
 
 @inbox.collate
 def handle(to, sender, subject, body):
+    if subject = 'test':
+        print 'YEAH'
     print '--------------'
     print to
     print '--------------'
@@ -15,4 +21,4 @@ def handle(to, sender, subject, body):
     print '--------------'
 
 # Bind directly.
-inbox.serve(address='localhost', port=4467)
+inbox.serve(address=sys.argv[1], port=int(sys.argv[2]))
