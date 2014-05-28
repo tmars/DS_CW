@@ -2,22 +2,24 @@
 
 {% block content %}
 
-<form action="" method="post">
+<form action="" method="get">
 {% csrf_token %}
 {{ form.as_p }}
-<input type="submit" value="Submit" />
+<input type="submit" value="Поиск" class="btn btn-primary"/>
 </form>
 
 {% if car_list %}
+<div class="row">
     {% for car in car_list %}
-        <div>
-        <img src="123{{ car.image }}"><br>
+        <div class="col-md-4">
+        <a href="{% url 'catalog:detail' car.office car.id %}"><img src="{{ car.image }}"></a><br>
         <a href="{% url 'catalog:detail' car.office car.id %}">{{ car.name }}</a>
         <b>${{ car.tarifs.0 }} за сутки</b>
         </div>
     {% endfor %}
+</div>
     
-    {% include "pager.html" with items=car_list %}
+{% include "pager.html" with items=car_list %}
 
 {% else %}
     <p>Нет доступных автомобилей.</p>

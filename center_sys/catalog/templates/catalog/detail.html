@@ -1,12 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<img src="{{ car.image }}"><br>
-<a>{{ car.name }}</a>
-<ul>
-<li>Тариф 1: {{ car.tarifs.0 }}</li>
-<li>Тариф 2: {{ car.tarifs.1 }}</li>
-<li>Тариф 3: {{ car.tarifs.2 }}</li>
-<li>Тариф 4: {{ car.tarifs.3 }}</li>
-</ul>
+<div class="row">
+    <div class="col-md-5">
+        <img src="{{ car.image }}"><br>
+        <h1>{{ car.name }}</h1>
+        <ul>
+        <li>Тариф 1: {{ car.tarifs.0 }}</li>
+        <li>Тариф 2: {{ car.tarifs.1 }}</li>
+        <li>Тариф 3: {{ car.tarifs.2 }}</li>
+        <li>Тариф 4: {{ car.tarifs.3 }}</li>
+        </ul>
+    </div>
+    <div class="col-md-7">
+        <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Бронировать" class="btn btn-primary"/>
+        </form>
+    </div>
+</div>
 {% endblock %}

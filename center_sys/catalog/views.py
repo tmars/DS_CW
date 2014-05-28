@@ -3,25 +3,25 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, Http404
+from django.forms.util import ErrorList
 
-from form import SearchForm
 from xml_rpc_server.models import Office
 import lib.conn as conn
 
 def index(request):
     kwargs = {}
-            
-    if request.method == 'POST': 
-        form = SearchForm(request.POST) 
-        if form.is_valid(): 
-            brand=form.cleaned_data['brand']
-            class_type=form.cleaned_data['class_type']
-            if brand is not None:
-                kwargs['brand'] = brand.id
-            if class_type != "":
-                kwargs['class_type'] = class_type
-    else:
-        form = SearchForm()
+    
+    from form import SearchForm
+    form = SearchForm(request.GET)
+    form.offices = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=OPTIONS)
+                                             
+    if form.is_valid(): 
+        brand_type=form.cleaned_data['brand_type']
+        class_type=form.cleaned_data['class_type']
+        if brand_type != "":
+            kwargs['brand_type'] = brand_type
+        if class_type != "":
+            kwargs['class_type'] = class_type
     
     car_list = []
     for office in Office.objects.filter(is_active=True):
@@ -35,7 +35,7 @@ def index(request):
             office.de_activate()
             pass
     
-    paginator = Paginator(car_list, 10)
+    paginator = Paginator(car_list, 3)
     page = request.GET.get('page')
     try:
         cars = paginator.page(page)
@@ -43,10 +43,15 @@ def index(request):
         cars = paginator.page(1)
     except EmptyPage:
         cars = paginator.page(paginator.num_pages)
-        
+    
+    queries = request.GET.copy()
+    if queries.has_key('page'):
+        del queries['page']
+    
     return render(request, 'catalog/index.html', {
         'car_list': cars,
         'form': form,
+        'queries': queries,
     })
     
 def detail(request, office_name, car_id):
@@ -66,9 +71,24 @@ def detail(request, office_name, car_id):
     except:
         office.de_activate()
         return render(request, 'message.html', {'result': 'Сервер не ответил за указанное время.'})
-        pass
+        
+    car['office'] = office.name;
     
-    return render(request, 'catalog/detail.html', {'car': car})
+    from form import OrderForm
+    if request.method == 'POST': 
+        form = OrderForm(request.POST) 
+        if form.is_valid(): 
+            start_date=form.cleaned_data['start_date']
+            end_date=form.cleaned_data['end_date']
+            form._errors.setdefault("username", ErrorList())\
+                .append(u"Неверный логин или пароль.")
+    else:
+        form = OrderForm()
+    
+    return render(request, 'catalog/detail.html', {
+        'car': car,
+        'form': form,
+    })
     
 def reserve(request, office_name, car_id):
     pass

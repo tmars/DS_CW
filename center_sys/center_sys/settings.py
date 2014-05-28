@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'catalog',
     'account',
     'xml_rpc_server',
-    'datetimewidget',
+    'bootstrap3_datetime',
 )
 
 MIDDLEWARE_CLASSES = (

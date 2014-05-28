@@ -1,15 +1,15 @@
-<div class="pagination">
-<span class="step-links">
+<div class="row">
+    <div class="col-md-4 col-md-offset-5">
     {% if items.has_previous %}
-        <a href="?page={{ items.previous_page_number }}"><<</a>
+        <a href="?{{queries.urlencode}}&amp;page={{ items.previous_page_number }}"><<</a>
     {% endif %}
 
     <span class="current">
-        стр. {{ items.number }} из {{ items.paginator.num_pages }}.
+        {{ items.number }} / {{ items.paginator.num_pages }}
     </span>
 
     {% if items.has_next %}
-        <a href="?page={{ items.next_page_number }}">>></a>
+        <a href="?{{queries.urlencode}}&amp;page={{ items.next_page_number }}">>></a>
     {% endif %}
-</span>
+    </div>
 </div>
