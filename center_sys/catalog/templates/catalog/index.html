@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <form action="" method="post">
 {% csrf_token %}
 {{ form.as_p }}
@@ -7,8 +11,8 @@
 {% if car_list %}
     {% for car in car_list %}
         <div>
-        <img src="{{ car.image }}"><br>
-        <a href="{% url 'detail' car.office car.id %}">{{ car.name }}</a>
+        <img src="123{{ car.image }}"><br>
+        <a href="{% url 'catalog:detail' car.office car.id %}">{{ car.name }}</a>
         <b>${{ car.tarifs.0 }} за сутки</b>
         </div>
     {% endfor %}
@@ -18,3 +22,5 @@
 {% else %}
     <p>Нет доступных автомобилей.</p>
 {% endif %}
+
+{% endblock %}

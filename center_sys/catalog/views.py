@@ -32,6 +32,7 @@ def index(request):
                 car_list.append(car)
               
         except:
+            office.de_activate()
             pass
     
     paginator = Paginator(car_list, 10)
@@ -54,13 +55,20 @@ def detail(request, office_name, car_id):
     except Office.DoesNotExist:
         raise Http404
     
+    if office.is_active == False:
+        return render(request, 'message.html', {'result': 'Офис в данный момент не доступен.'})
+    
     try:
         rpc_srv = conn.TimeoutServerProxy(office.xmlrpc, timeout=2)
         car = rpc_srv.get_car(car_id)
         if car == None:
             return render(request, 'message.html', {'result': 'Информация об авто отсутствует.'})
     except:
+        office.de_activate()
         return render(request, 'message.html', {'result': 'Сервер не ответил за указанное время.'})
         pass
     
     return render(request, 'catalog/detail.html', {'car': car})
+    
+def reserve(request, office_name, car_id):
+    pass

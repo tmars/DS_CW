@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog',
+    'account',
     'xml_rpc_server',
 )
 
@@ -91,3 +92,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 XMLRPC_METHODS = (('xml_rpc_server.views.register_office', 'register_office'),)
+
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+
+TEMPLATE_DIRS = (
+    PROJECT_PATH + '/templates/'
+)

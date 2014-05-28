@@ -1,0 +1,8 @@
+{% if user.is_authenticated %}
+    <p>Добро пожаловать, {{ user.username }}. <a href="/account/login">выйти</a></p>
+{% else %}
+    <p>Вы не авторизированы. <a href="/account/logout">войдите</a>.</p>
+{% endif %}
+
+{% block content %}
+{% endblock %}

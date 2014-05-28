@@ -1,1 +1,7 @@
-{{ result }}
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+<li><a href="{% url 'catalog:index' %}">Каталог</a></li>
+</ul>
+{% endblock %}

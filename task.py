@@ -30,10 +30,10 @@ if __name__ == "__main__":
         for k in nodes:
             cmd = 'start python %s/manage.py runserver %s %s' % (get('SYS', k), get('PORT', k), k)
             os.system(cmd)
-            print cmd
+            """print cmd
             cmd = 'start python %s/smtp.py %s %s' % (get('SYS', k), get('SHORT_URL', k), get('SMTP_PORT', k))
             os.system(cmd)
-            print cmd
+            print cmd"""
             print ('%s: http://localhost:%s/' % (k, get('PORT', k)))
             print
     

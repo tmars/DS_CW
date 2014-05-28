@@ -10,3 +10,7 @@ class Office(models.Model):
     @property
     def xmlrpc(self):
         return self.url + 'xmlrpc/'
+        
+    def de_activate(self):
+        self.is_active = False
+        self.save()

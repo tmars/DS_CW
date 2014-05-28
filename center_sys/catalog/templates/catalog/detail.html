@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <img src="{{ car.image }}"><br>
 <a>{{ car.name }}</a>
 <ul>
@@ -6,3 +9,4 @@
 <li>Тариф 3: {{ car.tarifs.2 }}</li>
 <li>Тариф 4: {{ car.tarifs.3 }}</li>
 </ul>
+{% endblock %}
