@@ -10,8 +10,9 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-import sys
-import xml_rpc_server
+
+os.sys.path.insert(0,os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))) 
+import task
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -63,7 +64,7 @@ WSGI_APPLICATION = 'office_sys.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DATABASE_NAME', 'rsoi_office_sys1'),
+        'NAME': task.get("DBNAME"),
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',
