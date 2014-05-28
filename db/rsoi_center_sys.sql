@@ -298,6 +298,31 @@ LOCK TABLES `django_session` WRITE;
 INSERT INTO `django_session` VALUES ('2bas9c7vbnv49i1ojtjutyx7xu0w0blt','YWZhOThmOTMwYjEyNmQ4NzY1YzllMDU2NGU1YmExMDk4N2ZiMmFhZjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:11:50'),('6ylsny4ncrd4tcus5vctf2c6quqcf2vc','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-09 20:11:02'),('77m5fvcjbiwyc2rxyqs46j301gno2iz1','YWZhOThmOTMwYjEyNmQ4NzY1YzllMDU2NGU1YmExMDk4N2ZiMmFhZjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-10 09:17:01'),('odw625lyua0wqz80hm3uanft24eorgie','YWZhOThmOTMwYjEyNmQ4NzY1YzllMDU2NGU1YmExMDk4N2ZiMmFhZjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:24:03');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `xml_rpc_server_office`
+--
+
+DROP TABLE IF EXISTS `xml_rpc_server_office`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `xml_rpc_server_office` (
+  `name` varchar(50) NOT NULL,
+  `url` varchar(50) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `xml_rpc_server_office`
+--
+
+LOCK TABLES `xml_rpc_server_office` WRITE;
+/*!40000 ALTER TABLE `xml_rpc_server_office` DISABLE KEYS */;
+INSERT INTO `xml_rpc_server_office` VALUES ('office1','http://localhost:1302/',1),('office2','http://localhost:1303/',1);
+/*!40000 ALTER TABLE `xml_rpc_server_office` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -308,4 +333,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-27 23:39:06
+-- Dump completed on 2014-05-28 11:33:58

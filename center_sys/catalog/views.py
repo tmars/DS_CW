@@ -1,11 +1,12 @@
+#coding=utf8
+
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse, Http404
 
 from form import SearchForm
-
-from django.http import HttpResponse
-
-import conn
+from xml_rpc_server.models import Office
+import lib.conn as conn
 
 def index(request):
     kwargs = {}
@@ -22,14 +23,18 @@ def index(request):
     else:
         form = SearchForm()
     
-    try:
-        rpc_srv = conn.TimeoutServerProxy('http://localhost:1300/xmlrpc/', timeout=2)
-        car_list = rpc_srv.get_cars(kwargs)
-    except:
-        car_list = []
-        pass
+    car_list = []
+    for office in Office.objects.filter(is_active=True):
+        try:
+            rpc_srv = conn.TimeoutServerProxy(office.xmlrpc, timeout=2)
+            for car in rpc_srv.get_cars(kwargs):
+                car['office'] = office.name;
+                car_list.append(car)
+              
+        except:
+            pass
     
-    paginator = Paginator(car_list, 2)
+    paginator = Paginator(car_list, 10)
     page = request.GET.get('page')
     try:
         cars = paginator.page(page)
@@ -43,9 +48,19 @@ def index(request):
         'form': form,
     })
     
-def detail(request, car_id):
+def detail(request, office_name, car_id):
     try:
-        car = Car.objects.get(pk=car_id)
-    except Car.DoesNotExist:
+        office = Office.objects.get(pk=office_name)
+    except Office.DoesNotExist:
         raise Http404
+    
+    try:
+        rpc_srv = conn.TimeoutServerProxy(office.xmlrpc, timeout=2)
+        car = rpc_srv.get_car(car_id)
+        if car == None:
+            return render(request, 'message.html', {'result': 'Информация об авто отсутствует.'})
+    except:
+        return render(request, 'message.html', {'result': 'Сервер не ответил за указанное время.'})
+        pass
+    
     return render(request, 'catalog/detail.html', {'car': car})

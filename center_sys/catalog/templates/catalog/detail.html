@@ -1,2 +1,8 @@
-<img src="{{MEDIA_URL }}{{ car.image }}"><br>
-<a>{{ car }}</a>
+<img src="{{ car.image }}"><br>
+<a>{{ car.name }}</a>
+<ul>
+<li>Тариф 1: {{ car.tarifs.0 }}</li>
+<li>Тариф 2: {{ car.tarifs.1 }}</li>
+<li>Тариф 3: {{ car.tarifs.2 }}</li>
+<li>Тариф 4: {{ car.tarifs.3 }}</li>
+</ul>

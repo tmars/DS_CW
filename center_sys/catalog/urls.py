@@ -7,5 +7,5 @@ urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
     
     # /catalog/test/
-    url(r'^(?P<car_id>.+)/$', views.detail, name='detail'),
+    url(r'^(?P<office_name>.+)/(?P<car_id>.+)/$', views.detail, name='detail'),
 )

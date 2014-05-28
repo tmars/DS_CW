@@ -94,4 +94,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(os.path.dirname(__file__), 'media')
 MEDIA_URL = '/media/'
 
-XMLRPC_METHODS = (('xml_rpc_server.views.get_cars', 'get_cars'),)
+XMLRPC_METHODS = (
+    ('xml_rpc_server.views.get_cars', 'get_cars'),
+    ('xml_rpc_server.views.get_car', 'get_car'),
+)

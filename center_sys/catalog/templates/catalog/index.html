@@ -8,7 +8,7 @@
     {% for car in car_list %}
         <div>
         <img src="{{ car.image }}"><br>
-        <a href="{% url 'detail' car.id %}">{{ car.name }}</a>
+        <a href="{% url 'detail' car.office car.id %}">{{ car.name }}</a>
         <b>${{ car.tarifs.0 }} за сутки</b>
         </div>
     {% endfor %}
@@ -18,11 +18,3 @@
 {% else %}
     <p>Нет доступных автомобилей.</p>
 {% endif %}
-
-<script type="text/javascript">
-(function($) {
-    var field;
-
-
-})(django.jQuery);
-</script>
