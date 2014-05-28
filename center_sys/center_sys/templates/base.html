@@ -1,8 +1,26 @@
-{% if user.is_authenticated %}
-    <p>Добро пожаловать, {{ user.username }}. <a href="/account/logout">выйти</a></p>
-{% else %}
-    <p>Вы не авторизированы. <a href="/account/login">войдите</a>.</p>
-{% endif %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link href="{{ STATIC_URL }}css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <script src="{{ STATIC_URL }}js/bootstrap.js"></script>
+    {{ form.media }}
+  </head>
+  <body>
+    <h1></h1>
+    
+    
+    {% if user.is_authenticated %}
+        <p>Добро пожаловать, {{ user.username }}. <a href="{% url 'account:logout' %}">выйти</a></p>
+    {% else %}
+        <p>Вы не авторизированы. <a href="{% url 'account:login' %}">войдите</a>.</p>
+    {% endif %}
 
-{% block content %}
-{% endblock %}
+    {% block content %}
+    {% endblock %}
+
+
+  </body>
+</html>

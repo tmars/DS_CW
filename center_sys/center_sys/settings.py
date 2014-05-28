@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'catalog',
     'account',
     'xml_rpc_server',
+    'datetimewidget',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,14 +87,15 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
-
-STATIC_URL = '/static/'
-
 XMLRPC_METHODS = (('xml_rpc_server.views.register_office', 'register_office'),)
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = ( 
+    os.path.join(PROJECT_PATH, "static"),
+)
 
 TEMPLATE_DIRS = (
     PROJECT_PATH + '/templates/'

@@ -3,26 +3,10 @@
 from django.db import models
 import os
 
-BODY_CHOICE = (
-    ('u', u'Универсал'),
-    ('h', u'Хетчбек'),
-    ('s', u'Седан'),
-)
-
-CLASS_CHOICE = (
-    ('l', u'Эконом класс'),
-    ('m', u'Средний класс'),
-    ('h', u'Бизнес класс'),
-)
-
-class Brand(models.Model):
-    brand_name = models.CharField(max_length=50, verbose_name=u'Название бренда')
-
-    def __unicode__(self):
-        return self.brand_name
+from lib.models import BODY_CHOICE, CLASS_CHOICE, BRAND_CHOICE, get_choice
     
 class Car(models.Model):
-    brand = models.ForeignKey(Brand, blank=False, null=False)
+    brand_type = models.IntegerField(choices=BRAND_CHOICE, verbose_name=u'Производитель')
     model_name = models.CharField(max_length=100,verbose_name=u'Модель')
     pub_date = models.DateTimeField('date published')
     body_type = models.CharField(max_length=1, choices=BODY_CHOICE, verbose_name=u'Тип кузова')
@@ -36,7 +20,4 @@ class Car(models.Model):
     
     
     def __unicode__(self):
-        return "%s %s" % (self.brand, self.model_name)
-            
- 
-    
+        return "%s %s" % (get_choice(self.brand_type, BRAND_CHOICE), self.model_name)
