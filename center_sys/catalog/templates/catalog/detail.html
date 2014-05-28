@@ -5,11 +5,13 @@
     <div class="col-md-5">
         <img src="{{ car.image }}"><br>
         <h1>{{ car.name }}</h1>
+        <h2>{{ car.class }}</h2>
+        <h3>{{ car.body }}</h3>
         <ul>
-        <li>Тариф 1: {{ car.tarifs.0 }}</li>
-        <li>Тариф 2: {{ car.tarifs.1 }}</li>
-        <li>Тариф 3: {{ car.tarifs.2 }}</li>
-        <li>Тариф 4: {{ car.tarifs.3 }}</li>
+        <li>на сутки: ${{ car.tarifs.0 }}</li>
+        <li>от 3 до 15 суток: ${{ car.tarifs.1 }}</li>
+        <li>от 15 до 30 суток: ${{ car.tarifs.2 }}</li>
+        <li>от 30 суток: ${{ car.tarifs.3 }}</li>
         </ul>
     </div>
     <div class="col-md-7">

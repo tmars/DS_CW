@@ -18,6 +18,17 @@ class Car(models.Model):
     tarif3 = models.IntegerField(verbose_name=u'тариф на период от 15 до 30 суток')
     tarif4 = models.IntegerField(verbose_name=u'тариф на период свыше 30 суток')
     
+    @property
+    def brand_name(self):
+        return get_choice(self.brand_type, BRAND_CHOICE)
+    
+    @property
+    def class_name(self):
+        return get_choice(self.class_type, CLASS_CHOICE)
+    
+    @property
+    def body(self):
+        return get_choice(self.body_type, BODY_CHOICE)
     
     def __unicode__(self):
-        return "%s %s" % (get_choice(self.brand_type, BRAND_CHOICE), self.model_name)
+        return "%s %s" % (self.brand_name, self.model_name)

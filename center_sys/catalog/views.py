@@ -13,8 +13,6 @@ def index(request):
     
     from form import SearchForm
     form = SearchForm(request.GET)
-    form.offices = forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple, choices=OPTIONS)
-                                             
     if form.is_valid(): 
         brand_type=form.cleaned_data['brand_type']
         class_type=form.cleaned_data['class_type']
@@ -35,7 +33,7 @@ def index(request):
             office.de_activate()
             pass
     
-    paginator = Paginator(car_list, 3)
+    paginator = Paginator(car_list, 8)
     page = request.GET.get('page')
     try:
         cars = paginator.page(page)

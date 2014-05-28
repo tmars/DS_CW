@@ -4,6 +4,8 @@ BODY_CHOICE = (
     ('u', u'Универсал'),
     ('h', u'Хетчбек'),
     ('s', u'Седан'),
+    ('p', u'Купе'),
+    ('c', u'Кабриолет'),
 )
 
 CLASS_CHOICE = (
@@ -23,9 +25,11 @@ BRAND_CHOICE = (
     (8, u'Mazda'),
     (9, u'Skoda'),
     (10, u'Renault'),
-    (11, u'Infinity'),
+    (11, u'Infiniti'),
     (12, u'Hyundai'),
     (13, u'Fiat'),
+    (14, u'Citroen'),
+    (15, u'Opel'),
 )
 
 def get_choice(key, CHOICE):

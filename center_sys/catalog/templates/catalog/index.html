@@ -9,12 +9,14 @@
 </form>
 
 {% if car_list %}
-<div class="row">
+<div class="row" >
     {% for car in car_list %}
-        <div class="col-md-4">
-        <a href="{% url 'catalog:detail' car.office car.id %}"><img src="{{ car.image }}"></a><br>
-        <a href="{% url 'catalog:detail' car.office car.id %}">{{ car.name }}</a>
-        <b>${{ car.tarifs.0 }} за сутки</b>
+        <div class="col-md-3" style="height:200px; ">
+            <div style="height:150px; overflow: hidden;">
+                <a href="{% url 'catalog:detail' car.office car.id %}"><img src="{{ car.image }}" width="250px"></a><br>
+            </div>
+            <a href="{% url 'catalog:detail' car.office car.id %}">{{ car.name }} ({{ car.body }})</a><br>
+            <i>{{ car.class }}</i>&nbsp;<b>${{ car.tarifs.0 }}</b><br>
         </div>
     {% endfor %}
 </div>

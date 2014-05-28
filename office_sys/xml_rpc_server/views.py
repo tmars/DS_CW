@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from catalog.models import Car
+from catalog.models import Car, get_choice, CLASS_CHOICE
 import sys
 import time
 import task
@@ -10,6 +10,8 @@ def car_info(car):
         'name': str(car),
         'tarifs': [car.tarif1, car.tarif2, car.tarif3, car.tarif4],
         'image': task.get("URL")+ car.image.url[1:],
+        'class': car.class_name,
+        'body': car.body,
     }
 
 def get_cars(kwargs):

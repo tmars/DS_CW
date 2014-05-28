@@ -4,6 +4,7 @@ from django import forms
 from django.forms.util import ErrorList
 from models import BRAND_CHOICE, CLASS_CHOICE, BODY_CHOICE
 from bootstrap3_datetime.widgets import DateTimePicker
+from datetime import date
 
 class SearchForm(forms.Form):
     brand_type = forms.ChoiceField( (('', '---------'),) + BRAND_CHOICE, required=False, label='Бренд')
@@ -30,5 +31,9 @@ class OrderForm(forms.Form):
         if flag and self.cleaned_data['start_date'] >= self.cleaned_data['end_date']:
             errors = self._errors.setdefault("start_date", ErrorList())
             errors.append(u"Неправильный период бронирования.")
+            flag = False
+        if flag and self.cleaned_data['start_date'] < date.today():
+            errors = self._errors.setdefault("start_date", ErrorList())
+            errors.append(u"Нельзя заказать задним числом.")
             flag = False
         return flag
