@@ -223,6 +223,35 @@ INSERT INTO `catalog_car` VALUES (1,'Getz 1.6','2014-05-28 21:14:41','h','m','im
 UNLOCK TABLES;
 
 --
+-- Table structure for table `catalog_order`
+--
+
+DROP TABLE IF EXISTS `catalog_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `catalog_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `car_id` int(11) NOT NULL,
+  `sum` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `status` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `car_id_refs_id_db965695` (`car_id`),
+  CONSTRAINT `car_id_refs_id_db965695` FOREIGN KEY (`car_id`) REFERENCES `catalog_car` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `catalog_order`
+--
+
+LOCK TABLES `catalog_order` WRITE;
+/*!40000 ALTER TABLE `catalog_order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `catalog_order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `catalog_tariff`
 --
 
@@ -343,4 +372,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-28 21:38:24
+-- Dump completed on 2014-05-29  1:06:09

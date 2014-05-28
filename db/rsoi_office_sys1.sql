@@ -127,7 +127,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$12000$ERJNGGv5xCNE$hza0kQ+H6p9rDxAzmbQcim72QmsYBaCuD1HHctas+6Q=','2014-05-28 11:38:40',1,'marcky','','','t.mars@mail.ru',1,1,'2014-05-26 12:51:38');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$12000$ERJNGGv5xCNE$hza0kQ+H6p9rDxAzmbQcim72QmsYBaCuD1HHctas+6Q=','2014-05-28 20:03:55',1,'marcky','','','t.mars@mail.ru',1,1,'2014-05-26 12:51:38');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,6 +223,36 @@ INSERT INTO `catalog_car` VALUES (1,'Laguna Grandtour 2.2 dCi Dynamique','2014-0
 UNLOCK TABLES;
 
 --
+-- Table structure for table `catalog_order`
+--
+
+DROP TABLE IF EXISTS `catalog_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `catalog_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `car_id` int(11) NOT NULL,
+  `sum` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `status` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `car_id_refs_id_db965695` (`car_id`),
+  CONSTRAINT `car_id_refs_id_db965695` FOREIGN KEY (`car_id`) REFERENCES `catalog_car` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `catalog_order`
+--
+
+LOCK TABLES `catalog_order` WRITE;
+/*!40000 ALTER TABLE `catalog_order` DISABLE KEYS */;
+INSERT INTO `catalog_order` VALUES (8,2,330,'2014-05-28','2014-05-31','reserve'),(9,4,208,'2014-05-29','2014-05-31','reserve'),(10,1,248,'2014-05-29','2014-05-31','reserve'),(11,7,284,'2014-05-29','2014-05-31','reserve'),(12,5,142,'2014-05-29','2014-05-30','reserve'),(13,5,284,'2014-06-01','2014-06-03','reserve');
+/*!40000 ALTER TABLE `catalog_order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `catalog_tariff`
 --
 
@@ -268,7 +298,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_37ef4eb4` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_93d2d1f8` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `user_id_refs_id_c0d12874` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,7 +307,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2014-05-26 13:12:31',1,7,'1','Car object',1,''),(2,'2014-05-26 13:31:52',1,7,'1','Audi R8',2,'Изменен image.'),(3,'2014-05-26 13:32:45',1,7,'1','Audi R8',2,'Изменен image.'),(4,'2014-05-26 13:33:38',1,7,'1','Audi R8',2,'Изменен image.'),(5,'2014-05-26 13:36:26',1,7,'1','Audi R8',2,'Изменен image.'),(6,'2014-05-26 13:37:03',1,7,'1','Audi R8',2,'Изменен image.'),(7,'2014-05-26 13:43:09',1,7,'1','Audi R8',2,'Изменен image.'),(8,'2014-05-26 14:10:25',1,8,'1','Brand object',1,''),(9,'2014-05-26 14:13:02',1,7,'1','1 R8',2,'Изменен brand.'),(10,'2014-05-26 14:13:39',1,7,'1','Audi R8',2,'Ни одно поле не изменено.'),(11,'2014-05-26 14:13:49',1,8,'2','BMW',1,''),(12,'2014-05-26 14:13:52',1,8,'3','Ford',1,''),(13,'2014-05-26 14:13:55',1,8,'4','Honda',1,''),(14,'2014-05-26 14:13:57',1,8,'5','Lexus',1,''),(15,'2014-05-26 14:14:00',1,8,'6','Kia',1,''),(16,'2014-05-26 14:14:03',1,8,'7','Nissan',1,''),(17,'2014-05-26 14:14:06',1,8,'8','Mazda',1,''),(18,'2014-05-26 14:14:08',1,8,'9','Skoda',1,''),(19,'2014-05-26 14:14:11',1,8,'10','Renault',1,''),(20,'2014-05-26 14:14:14',1,8,'11','Infinity',1,''),(21,'2014-05-26 14:14:17',1,8,'12','Hyundai',1,''),(22,'2014-05-26 14:14:20',1,8,'13','Fiat',1,''),(23,'2014-05-26 14:16:24',1,7,'1','Audi R8',2,'Ни одно поле не изменено.'),(24,'2014-05-26 14:26:43',1,9,'1','Тариф на сутки',1,''),(25,'2014-05-26 14:27:03',1,9,'2','Тариф на период от 3 до 15 суток',1,''),(26,'2014-05-26 14:27:20',1,9,'3','Тариф на период от 15 до 30 суток',1,''),(27,'2014-05-26 14:33:19',1,7,'1','Audi R8',2,'Изменен tarif1.'),(28,'2014-05-26 14:36:33',1,7,'1','Audi R8',2,'Изменен tarif1,tarif2,tarif3 и tarif4.'),(29,'2014-05-27 09:19:49',1,7,'1','Audi R8',2,'Изменен image.'),(30,'2014-05-27 09:22:05',1,7,'1','Audi R8',2,'Изменен image.'),(31,'2014-05-27 09:25:27',1,7,'1','Audi R8',2,'Изменен image.'),(32,'2014-05-27 09:34:21',1,7,'1','Audi R8',2,'Изменен image.'),(33,'2014-05-27 11:46:17',1,7,'1','Audi R8',2,'Изменен class_type.');
+INSERT INTO `django_admin_log` VALUES (1,'2014-05-26 13:12:31',1,7,'1','Car object',1,''),(2,'2014-05-26 13:31:52',1,7,'1','Audi R8',2,'Изменен image.'),(3,'2014-05-26 13:32:45',1,7,'1','Audi R8',2,'Изменен image.'),(4,'2014-05-26 13:33:38',1,7,'1','Audi R8',2,'Изменен image.'),(5,'2014-05-26 13:36:26',1,7,'1','Audi R8',2,'Изменен image.'),(6,'2014-05-26 13:37:03',1,7,'1','Audi R8',2,'Изменен image.'),(7,'2014-05-26 13:43:09',1,7,'1','Audi R8',2,'Изменен image.'),(8,'2014-05-26 14:10:25',1,8,'1','Brand object',1,''),(9,'2014-05-26 14:13:02',1,7,'1','1 R8',2,'Изменен brand.'),(10,'2014-05-26 14:13:39',1,7,'1','Audi R8',2,'Ни одно поле не изменено.'),(11,'2014-05-26 14:13:49',1,8,'2','BMW',1,''),(12,'2014-05-26 14:13:52',1,8,'3','Ford',1,''),(13,'2014-05-26 14:13:55',1,8,'4','Honda',1,''),(14,'2014-05-26 14:13:57',1,8,'5','Lexus',1,''),(15,'2014-05-26 14:14:00',1,8,'6','Kia',1,''),(16,'2014-05-26 14:14:03',1,8,'7','Nissan',1,''),(17,'2014-05-26 14:14:06',1,8,'8','Mazda',1,''),(18,'2014-05-26 14:14:08',1,8,'9','Skoda',1,''),(19,'2014-05-26 14:14:11',1,8,'10','Renault',1,''),(20,'2014-05-26 14:14:14',1,8,'11','Infinity',1,''),(21,'2014-05-26 14:14:17',1,8,'12','Hyundai',1,''),(22,'2014-05-26 14:14:20',1,8,'13','Fiat',1,''),(23,'2014-05-26 14:16:24',1,7,'1','Audi R8',2,'Ни одно поле не изменено.'),(24,'2014-05-26 14:26:43',1,9,'1','Тариф на сутки',1,''),(25,'2014-05-26 14:27:03',1,9,'2','Тариф на период от 3 до 15 суток',1,''),(26,'2014-05-26 14:27:20',1,9,'3','Тариф на период от 15 до 30 суток',1,''),(27,'2014-05-26 14:33:19',1,7,'1','Audi R8',2,'Изменен tarif1.'),(28,'2014-05-26 14:36:33',1,7,'1','Audi R8',2,'Изменен tarif1,tarif2,tarif3 и tarif4.'),(29,'2014-05-27 09:19:49',1,7,'1','Audi R8',2,'Изменен image.'),(30,'2014-05-27 09:22:05',1,7,'1','Audi R8',2,'Изменен image.'),(31,'2014-05-27 09:25:27',1,7,'1','Audi R8',2,'Изменен image.'),(32,'2014-05-27 09:34:21',1,7,'1','Audi R8',2,'Изменен image.'),(33,'2014-05-27 11:46:17',1,7,'1','Audi R8',2,'Изменен class_type.'),(34,'2014-05-28 20:21:28',1,10,'1','Citroen Corsa Lite Gsi [18]',3,''),(35,'2014-05-28 20:45:12',1,10,'5','Citroen Vectra 2.0 DTI Hatchback [4]',3,''),(36,'2014-05-28 20:45:12',1,10,'4','Citroen Vectra 2.0 DTI Hatchback [4]',3,''),(37,'2014-05-28 20:45:12',1,10,'3','Citroen Corsa Lite Gsi [18]',3,''),(38,'2014-05-28 20:45:12',1,10,'2','Citroen Corsa Lite Gsi [18]',3,''),(39,'2014-05-28 20:59:18',1,10,'7','Skoda Laguna Grandtour 2.2 dCi Dynamique [1]',3,''),(40,'2014-05-28 20:59:18',1,10,'6','Citroen Vectra 2.0 DTI Hatchback [4]',3,'');
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -295,7 +325,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -304,7 +334,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'log entry','admin','logentry'),(2,'permission','auth','permission'),(3,'group','auth','group'),(4,'user','auth','user'),(5,'content type','contenttypes','contenttype'),(6,'session','sessions','session'),(7,'car','catalog','car'),(8,'brand','catalog','brand'),(9,'tariff','catalog','tariff');
+INSERT INTO `django_content_type` VALUES (1,'log entry','admin','logentry'),(2,'permission','auth','permission'),(3,'group','auth','group'),(4,'user','auth','user'),(5,'content type','contenttypes','contenttype'),(6,'session','sessions','session'),(7,'car','catalog','car'),(8,'brand','catalog','brand'),(9,'tariff','catalog','tariff'),(10,'order','catalog','order');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -330,7 +360,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('0j6aq257zcu891befr8zpy8bnzvj862i','YTBkZjdkNTI5MjBkMmEwYzc5NTRmN2E1M2M4ODdiOTdkOTYzNzMyZDp7fQ==','2014-06-10 09:16:53'),('6p3f4h4288g8spl01q24kyg5kuht1oii','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-10 09:17:08'),('b1qqk2vk3oybvuedyh2i4e2y7avdxgod','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-10 19:17:39'),('d17yixohai9pywsekwh486ij6wftam71','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:23:11'),('dc7bnmgiiwhtnetyeepl0e1k6nhyjc1w','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 11:34:18'),('fm1d6y98hdpk06aub0hr3i2h9vfz949u','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:49:36'),('fmm87rmjkxro8l9d3irxh46lmc3s0bzv','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 11:38:40'),('hv7xhy67khozs3slgvg1utdu1i6lsjf4','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:11:20'),('uxq3pi1n10piwy4mqlmbdv8m1e2oh0yh','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 13:11:01');
+INSERT INTO `django_session` VALUES ('0j6aq257zcu891befr8zpy8bnzvj862i','YTBkZjdkNTI5MjBkMmEwYzc5NTRmN2E1M2M4ODdiOTdkOTYzNzMyZDp7fQ==','2014-06-10 09:16:53'),('1qahsl0v41b0t8y78891aqsdsq3sl5r0','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 19:57:00'),('2gb0h65rxcby4ytryg3vyaxvdp68h0ng','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 19:58:36'),('2h2kcw1q264no39twdt6isq4osb9zxb7','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 19:50:19'),('6p3f4h4288g8spl01q24kyg5kuht1oii','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-10 09:17:08'),('b1qqk2vk3oybvuedyh2i4e2y7avdxgod','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-10 19:17:39'),('cvqx8r2ift54e1rolalqaen8cuz5p8fj','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 19:50:33'),('d17yixohai9pywsekwh486ij6wftam71','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:23:11'),('dc7bnmgiiwhtnetyeepl0e1k6nhyjc1w','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 11:34:18'),('fm1d6y98hdpk06aub0hr3i2h9vfz949u','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:49:36'),('fmm87rmjkxro8l9d3irxh46lmc3s0bzv','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 11:38:40'),('htk7me3p87rjflhssddf93wamjaltne8','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 20:02:19'),('hv7xhy67khozs3slgvg1utdu1i6lsjf4','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:11:20'),('iget6mjnl8toqqdra86n4nqw44jg1ck3','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 20:03:55'),('rgm452kbg09br69d01bsaywuystlemln','YTBkZjdkNTI5MjBkMmEwYzc5NTRmN2E1M2M4ODdiOTdkOTYzNzMyZDp7fQ==','2014-06-11 20:03:40'),('uxq3pi1n10piwy4mqlmbdv8m1e2oh0yh','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 13:11:01'),('zuykxs2u0ryeh2qru7cr5c3bg40xfgy0','MWVlYzFhNWQxZThjM2JiZDhhYzk0YmMwOWIyOTUwNmU2MzU4MDE2Nzp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 20:01:17');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -343,4 +373,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-28 21:38:24
+-- Dump completed on 2014-05-29  1:06:09

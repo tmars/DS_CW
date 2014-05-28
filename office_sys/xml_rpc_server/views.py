@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from catalog.models import Car, get_choice, CLASS_CHOICE
+
 import sys
 import time
+from datetime import datetime
+
+from catalog.models import Car, Order, get_choice, CLASS_CHOICE
 import task
 
 def car_info(car):
@@ -14,11 +17,15 @@ def car_info(car):
         'body': car.body,
     }
 
-def get_cars(kwargs):
+def get_cars(kwargs, start_date, end_date):
+    start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
+    end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
+    
     res = []
     #time.sleep(5)
     for car in Car.objects.filter(**kwargs):
-        res.append(car_info(car))
+        if (car.is_free_for(start_date, end_date)):
+            res.append(car_info(car))
     return res
     
 def get_car(car_id):
@@ -26,3 +33,20 @@ def get_car(car_id):
         return car_info(Car.objects.get(pk=car_id))
     except:
         return None
+    
+def reserve_car(car_id, start_date, end_date):
+    try:
+        car = Car.objects.get(pk=car_id)
+    except:
+        return False
+    
+    start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
+    end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
+    
+    if not car.is_free_for(start_date, end_date):
+        return False
+    
+    order = Order()
+    order.reserve(car=car, start_date=start_date, end_date=end_date)
+    order.save()
+    return [order.id, order.sum]

@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<form action="" method="get">
-{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Поиск" class="btn btn-primary"/>
-</form>
+    
+<div class="col-md-3">
+    <form action="" method="get">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Поиск" class="btn btn-primary"/>
+    </form>
+</div>
 
 {% if car_list %}
-<div class="row" >
+<div class="col-md-9" >
     {% for car in car_list %}
-        <div class="col-md-3" style="height:200px; ">
+        <div class="col-md-4" style="height:210px; ">
             <div style="height:150px; overflow: hidden;">
                 <a href="{% url 'catalog:detail' car.office car.id %}"><img src="{{ car.image }}" width="250px"></a><br>
             </div>

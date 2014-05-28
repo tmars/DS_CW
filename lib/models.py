@@ -1,5 +1,11 @@
 #coding=utf8
 
+STATUS_CHOICE = (
+    ('reserve', u'Зарезервировано'),
+    ('payed', u'Оплачено'),
+    ('cancelled', u'Отменено'),
+)
+
 BODY_CHOICE = (
     ('u', u'Универсал'),
     ('h', u'Хетчбек'),

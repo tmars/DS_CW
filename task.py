@@ -27,7 +27,11 @@ def get(param, n=None):
     
 if __name__ == "__main__":
     if sys.argv[1] == 'run':
-        for k in nodes:
+        if len(sys.argv) > 2:
+            ns = sys.argv[2:]
+        else:
+            ns = nodes
+        for k in ns:
             cmd = 'start python %s/manage.py runserver %s %s' % (get('SYS', k), get('PORT', k), k)
             os.system(cmd)
             print cmd

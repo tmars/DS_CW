@@ -97,4 +97,5 @@ MEDIA_URL = '/media/'
 XMLRPC_METHODS = (
     ('xml_rpc_server.views.get_cars', 'get_cars'),
     ('xml_rpc_server.views.get_car', 'get_car'),
+    ('xml_rpc_server.views.reserve_car', 'reserve_car'),
 )

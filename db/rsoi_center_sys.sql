@@ -127,7 +127,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$12000$WzjF5eWsjDK9$jop0nI4reiHebt9smPE7UPNJ9m4zAiVow1K8+O8sQuU=','2014-05-28 09:38:53',1,'marcky','','','t.mars@mail.ru',1,1,'2014-05-26 12:45:50'),(2,'pbkdf2_sha256$12000$t68v5wSX3dEN$lEE1XbsUgxOIybBLlj2Ka1mVsBZK/UdtNfU6o/B9x5o=','2014-05-28 13:52:45',0,'test','Василий','Петрович','talipov.mars@gmail.com',0,1,'2014-05-28 09:39:06');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$12000$WzjF5eWsjDK9$jop0nI4reiHebt9smPE7UPNJ9m4zAiVow1K8+O8sQuU=','2014-05-28 20:51:06',1,'marcky','','','t.mars@mail.ru',1,1,'2014-05-26 12:45:50'),(2,'pbkdf2_sha256$12000$t68v5wSX3dEN$lEE1XbsUgxOIybBLlj2Ka1mVsBZK/UdtNfU6o/B9x5o=','2014-05-28 20:39:11',0,'test','Василий','Петрович','talipov.mars@gmail.com',0,1,'2014-05-28 09:39:06');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,6 +190,39 @@ LOCK TABLES `auth_user_user_permissions` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `catalog_order`
+--
+
+DROP TABLE IF EXISTS `catalog_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `catalog_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `office_id` varchar(50) NOT NULL,
+  `order` int(11) NOT NULL,
+  `sum` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `car` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `office_id_refs_name_53b2e82c` (`office_id`),
+  CONSTRAINT `office_id_refs_name_53b2e82c` FOREIGN KEY (`office_id`) REFERENCES `xml_rpc_server_office` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `catalog_order`
+--
+
+LOCK TABLES `catalog_order` WRITE;
+/*!40000 ALTER TABLE `catalog_order` DISABLE KEYS */;
+INSERT INTO `catalog_order` VALUES (1,'office1',6,208,'2014-05-28','2014-05-30','reserve',0,0),(2,'office1',8,330,'2014-05-28','2014-05-31','reserve',1,0),(3,'office1',9,208,'2014-05-29','2014-05-31','reserve',1,4),(4,'office1',10,248,'2014-05-29','2014-05-31','reserve',1,1),(5,'office1',11,284,'2014-05-29','2014-05-31','reserve',1,7),(6,'office1',12,142,'2014-05-29','2014-05-30','reserve',1,5),(7,'office1',13,284,'2014-06-01','2014-06-03','reserve',1,5);
+/*!40000 ALTER TABLE `catalog_order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `django_admin_log`
 --
 
@@ -237,7 +270,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -246,7 +279,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'log entry','admin','logentry'),(2,'permission','auth','permission'),(3,'group','auth','group'),(4,'user','auth','user'),(5,'content type','contenttypes','contenttype'),(6,'session','sessions','session'),(7,'brand','catalog','brand');
+INSERT INTO `django_content_type` VALUES (1,'log entry','admin','logentry'),(2,'permission','auth','permission'),(3,'group','auth','group'),(4,'user','auth','user'),(5,'content type','contenttypes','contenttype'),(6,'session','sessions','session'),(7,'brand','catalog','brand'),(8,'order','catalog','order');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,7 +305,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('2bas9c7vbnv49i1ojtjutyx7xu0w0blt','YWZhOThmOTMwYjEyNmQ4NzY1YzllMDU2NGU1YmExMDk4N2ZiMmFhZjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:11:50'),('6ylsny4ncrd4tcus5vctf2c6quqcf2vc','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-09 20:11:02'),('77m5fvcjbiwyc2rxyqs46j301gno2iz1','YWZhOThmOTMwYjEyNmQ4NzY1YzllMDU2NGU1YmExMDk4N2ZiMmFhZjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-10 09:17:01'),('djot9uip5kwex76l97e69dltl80bfkio','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-11 18:12:14'),('f6t92himyb07msdmzq9u3o9mj86up6yo','MmI0ZmM4MTE2ZDI1YWJmNGViZmNhOGY1YmE0MzU0NzM0ZjE4MGE0ODp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=','2014-06-11 10:26:41'),('imgoxop84j8csfiwnq5zzrderlo85po2','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-11 11:09:44'),('odw625lyua0wqz80hm3uanft24eorgie','YWZhOThmOTMwYjEyNmQ4NzY1YzllMDU2NGU1YmExMDk4N2ZiMmFhZjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:24:03'),('r52nv5q6skr893706y6h5s5f4wh96w5n','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-11 11:38:28'),('wuhed2fkelemkjpweng7qv6wdlja0sfw','MmI0ZmM4MTE2ZDI1YWJmNGViZmNhOGY1YmE0MzU0NzM0ZjE4MGE0ODp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=','2014-06-11 13:52:45');
+INSERT INTO `django_session` VALUES ('26lp87ps61cp2ixc1gq4um0yfv18laoe','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-11 20:01:20'),('2bas9c7vbnv49i1ojtjutyx7xu0w0blt','YWZhOThmOTMwYjEyNmQ4NzY1YzllMDU2NGU1YmExMDk4N2ZiMmFhZjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:11:50'),('4mtxq4xx7ukl8oq8oe1s38hs49oes7hf','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-11 19:50:25'),('6ylsny4ncrd4tcus5vctf2c6quqcf2vc','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-09 20:11:02'),('77m5fvcjbiwyc2rxyqs46j301gno2iz1','YWZhOThmOTMwYjEyNmQ4NzY1YzllMDU2NGU1YmExMDk4N2ZiMmFhZjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-10 09:17:01'),('a2nt14808gbwewax2i9x6raowqduwna8','OWJmMDhlOWNmN2QxODIxNDkwYjdlNWM1MDJiODNkYzUzMzRjODM2Zjp7ImVuZF9kYXRlIjoiMjAxNC0wNS0zMCIsIl9hdXRoX3VzZXJfaWQiOjEsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwic3RhcnRfZGF0ZSI6IjIwMTQtMDUtMjkifQ==','2014-06-11 21:59:04'),('f6t92himyb07msdmzq9u3o9mj86up6yo','MmI0ZmM4MTE2ZDI1YWJmNGViZmNhOGY1YmE0MzU0NzM0ZjE4MGE0ODp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=','2014-06-11 10:26:41'),('imgoxop84j8csfiwnq5zzrderlo85po2','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-11 11:09:44'),('odw625lyua0wqz80hm3uanft24eorgie','YWZhOThmOTMwYjEyNmQ4NzY1YzllMDU2NGU1YmExMDk4N2ZiMmFhZjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-09 20:24:03'),('pbizx3pdmob3tu7kvgrgttk5ood99yw0','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-11 19:57:10'),('qtf2noupdsc8r99h6ucyu5spdjvfc75w','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-11 19:59:18'),('r52nv5q6skr893706y6h5s5f4wh96w5n','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-11 11:38:28'),('tdhluefk4uuv6jlgshl1f5cdsithnqpt','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-11 20:02:26'),('vsavo799cu19hcq9ms6ncwtjgopwbq51','MmI0ZmM4MTE2ZDI1YWJmNGViZmNhOGY1YmE0MzU0NzM0ZjE4MGE0ODp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=','2014-06-11 18:39:07'),('wuhed2fkelemkjpweng7qv6wdlja0sfw','MmI0ZmM4MTE2ZDI1YWJmNGViZmNhOGY1YmE0MzU0NzM0ZjE4MGE0ODp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0=','2014-06-11 13:52:45'),('zloejk2oyiawscprem59ikvv0p8nkez8','MTliMGFkNGYwNjZiZGIxMDY0NWMzYTU5NjQ0MTkzZmU1YzQ0NTg1MDp7fQ==','2014-06-11 19:50:36');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -310,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-28 21:38:24
+-- Dump completed on 2014-05-29  1:06:09

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if order_list %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Начало периода</th>
+            <th>Конец периода</th>
+            <th>Офис заказа</th>
+            <th>Номер заказа</th>
+            <th>Статус заказа</th>
+        </tr>
+    </thead>
+    {% for order in order_list %}
+        <tr>
+            <td>{{ order.start_date }}</td>
+            <td>{{ order.end_date }}</td>
+            <td>{{ order.office }}</td>
+            <td><a href="{% url 'catalog:detail' order.office order.car %}">{{ order.order }}</a></td>
+            <td>{{ order.status_name }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% include "pager.html" with items=car_list %}
+
+{% else %}
+    <p>Нет заказов.</p>
+{% endif %}
+
+{% endblock %}

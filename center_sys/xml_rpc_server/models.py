@@ -14,3 +14,6 @@ class Office(models.Model):
     def de_activate(self):
         self.is_active = False
         self.save()
+        
+    def __unicode__(self):
+        return self.name
