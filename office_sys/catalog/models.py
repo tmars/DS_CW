@@ -37,8 +37,9 @@ class Car(models.Model):
     
         orders = Order.objects.filter(car=self.id)
         for r in orders:
-            if (max_date < r.start_date or min_date > r.end_date) \
-                and r.is_free():
+            if r.is_free():
+                continue
+            elif max_date < r.start_date or min_date > r.end_date:
                 continue
             else:
                 return False
