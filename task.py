@@ -4,7 +4,7 @@ import sys
 
 nodes = {
     'center':   {'SYS': 'center_sys', 'PORT': '1301', 'DBNAME': 'rsoi_center_sys',
-        'EMAIL': 'center@rsoi.ru'},
+        'EMAIL': 'center@rsoi.ru', 'PASS': '1234', 'WITH_POP3': '1'},
         
     'office1':  {'SYS': 'office_sys', 'PORT': '1302', 'DBNAME': 'rsoi_office_sys1',
         'EMAIL': 'office1@rsoi.ru', 'PASS': '1234', 'WITH_POP3': '1', 'BILL': '12345678'},

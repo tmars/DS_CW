@@ -1,13 +1,3 @@
-"""
-Django settings for center_sys project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.6/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.6/ref/settings/
-"""
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
@@ -15,11 +5,11 @@ os.sys.path.insert(0,os.path.dirname(os.path.dirname(os.path.dirname(os.path.abs
 import task
 
 PAYSYS_CLIENT_ID = 'W91U15BX'
-PAYSYS_TRANSFER_PAGE = task.get('B_URL', 'payment') + \
-    'tranfer/?id=' + PAYSYS_CLIENT_ID
+PAYSYS_TRANSFER_PAGE = task.get('B_URL', 'payment') + 'tranfer/?'
 PAYSYS_XMLRPC_PAGE = task.get('URL', 'payment') + 'xmlrpc/'
 
 EMAIL = task.get('EMAIL')
+PASSWORD = task.get('PASS')
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 

@@ -4,6 +4,7 @@ STATUS_CHOICE = (
     ('reserve', u'Зарезервировано'),
     ('paid', u'Оплачено'),
     ('cancelled', u'Отменено'),
+    ('closed', u'Совершено'),
 )
 
 BODY_CHOICE = (

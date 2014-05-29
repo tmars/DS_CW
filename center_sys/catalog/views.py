@@ -54,7 +54,7 @@ def index(request):
                 car_list.append(car)
                 
         except Exception, exc:
-            errors.append(u"Офис %s не ответил." % office.name + str(exc))
+            errors.append(u"Офис %s не ответил." % office.name )
             office.de_activate()
             pass
     

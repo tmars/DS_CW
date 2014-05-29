@@ -17,7 +17,7 @@ def index(request):
     
     if not request.user.is_authenticated():
         return render(request, "message.html", {"result": "Страница для авторизированных пользователей."})
-    order_list = Order.objects.filter(user=request.user)
+    order_list = Order.objects.filter(user=request.user).order_by('-create_time')
     
     paginator = Paginator(order_list, 8)
     page = request.GET.get('page')

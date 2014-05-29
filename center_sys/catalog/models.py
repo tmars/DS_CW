@@ -38,6 +38,9 @@ class Order(models.Model):
         
     def cancel(self):
         self.status = 'cancelled'
+    
+    def close(self):
+        self.status = 'closed'
         
     def __unicode__(self):
         return "%s (%s)" % (str(self.office), self.order)

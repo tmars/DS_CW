@@ -35,9 +35,10 @@ class Car(models.Model):
         min_date = min(start_date, end_date)
         max_date = max(start_date, end_date)
     
-        requests = Order.objects.filter(car=self.id)
-        for r in requests:
-            if max_date < r.start_date or min_date > r.end_date:
+        orders = Order.objects.filter(car=self.id)
+        for r in orders:
+            if (max_date < r.start_date or min_date > r.end_date) \
+                and r.is_free():
                 continue
             else:
                 return False
@@ -81,6 +82,12 @@ class Order(models.Model):
         
     def cancel(self):
         self.status = 'cancelled'
+        
+    def close(self):
+        self.status = 'closed'
+        
+    def is_free(self):
+        return self.status in ['cancelled', 'closed']
         
     def __unicode__(self):
         return "%s [%d]" % (str(self.car), self.car.id)

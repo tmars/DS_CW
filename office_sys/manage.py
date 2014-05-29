@@ -5,7 +5,6 @@ import sys
 os.sys.path.insert(0,os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import task
 import lib.conn as conn
-from lib.inbox import Inbox
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "office_sys.settings")
