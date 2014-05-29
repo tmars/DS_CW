@@ -9,6 +9,11 @@ from datetime import date
 from models import BRAND_CHOICE, CLASS_CHOICE, BODY_CHOICE
 from xml_rpc_server.models import Office
 
+SORT_CHOISE = (
+    ('name', 'названию'),
+    ('price', 'цене'),
+)
+
 class SearchForm(forms.Form):
     brand_type = forms.ChoiceField( (('', '---------'),) + BRAND_CHOICE, required=False, label='Бренд')
     class_type = forms.ChoiceField( (('', '---------'),) + CLASS_CHOICE, required=False, label='Класс')
@@ -21,10 +26,14 @@ class SearchForm(forms.Form):
    
     offices = forms.ModelMultipleChoiceField(Office.objects.filter(is_active=True),required=False,label='Отделения')
     
+    sort_by = forms.ChoiceField(SORT_CHOISE, required=False, label='Сортировать по', initial='name')
+    
+    
     brand_type.widget.attrs['class'] = 'form-control'
     class_type.widget.attrs['class'] = 'form-control'
     body_type.widget.attrs['class'] = 'form-control'
     offices.widget.attrs['class'] = 'form-control'
+    sort_by.widget.attrs['class'] = 'form-control'
     
 class OrderForm(forms.Form):
     start_date = forms.DateField(label='Начало аренды',

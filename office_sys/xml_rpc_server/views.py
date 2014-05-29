@@ -23,7 +23,7 @@ def get_cars(kwargs, start_date, end_date):
     
     res = []
     #time.sleep(5)
-    cars = Car.objects.filter(**kwargs).order_by('pub_date')
+    cars = Car.objects.filter(**kwargs)
     for car in cars:
         if (car.is_free_for(start_date, end_date)):
             res.append(car_info(car))

@@ -14,7 +14,6 @@ from models import Order
 
 def index(request):
     kwargs = {}
-    
     from form import SearchForm
     if 'csrfmiddlewaretoken' in request.GET:
         initials = request.GET
@@ -37,8 +36,9 @@ def index(request):
         
         brand_type=form.cleaned_data['brand_type']
         class_type=form.cleaned_data['class_type']
-        office_ids = form.cleaned_data['offices'] or []
+        office_ids=form.cleaned_data['offices'] or []
         offices = Office.objects.filter(is_active=True, pk__in=office_ids)
+        sort_by=form.cleaned_data['sort_by']
     else:
         offices = Office.objects.filter(is_active=True)
     
@@ -57,6 +57,11 @@ def index(request):
             errors.append(u"Офис %s не ответил." % office.name )
             office.de_activate()
             pass
+    
+    if sort_by == 'price':
+        car_list.sort(key=lambda x: x['tarifs'][0])
+    else:
+        car_list.sort(key=lambda x: x['name'])
     
     paginator = Paginator(car_list, 9)
     page = request.GET.get('page')
