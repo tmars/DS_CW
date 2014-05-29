@@ -39,12 +39,12 @@ if __name__ == "__main__":
         else:
             ns = nodes
         for k in ns:
-            cmd = 'start python %s/manage.py runserver %s %s' % (get('SYS', k), get('PORT', k), k)
+            cmd = 'start "%s server" /MIN python %s/manage.py runserver %s %s' % (k, get('SYS', k), get('PORT', k), k)
             os.system(cmd)
             print cmd
             
             if get('WITH_POP3', k):
-                cmd = 'start python %s/client.py %s' % (get('SYS', k), k)
+                cmd = 'start "%s pop3" /MIN python %s/client.py %s' % (k, get('SYS', k), k)
                 os.system(cmd)
                 print cmd
                 
