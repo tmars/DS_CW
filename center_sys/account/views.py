@@ -10,6 +10,8 @@ from django.conf import settings
 
 from form import LoginForm
 from catalog.models import Order
+import lib.conn as conn
+from lib.mail import sendmail
 
 def index(request):
     
@@ -28,10 +30,41 @@ def index(request):
     
     return render(request, 'account/orders.html', {
         'order_list': orders,
-        'paysys_link': settings.PAYSYS_LOC
     })
     
+def pay_order(request, order_id):
     
+    if not request.user.is_authenticated():
+        return render(request, "message.html", {"result": "Страница для авторизированных пользователей."})
+    
+    try:
+        order = Order.objects.get(pk=order_id)    
+    except:
+        return render(request, "message.html", {"result": "Заказ не найден."})
+    
+    if order.user.id != request.user.id:
+        return render(request, "message.html", {"result": "Ошибка доступа."})
+    
+    if order.status == 'paid':
+        return render(request, "message.html", {"result": "Заказ уже оплачен."})
+    
+    if order.status == 'cancelled':
+        return render(request, "message.html", {"result": "Заказ был отменен."})
+    
+    try:
+        rpc_srv = conn.TimeoutServerProxy(settings.PAYSYS_XMLRPC_PAGE, timeout=2)
+        res = rpc_srv.create_transaction(settings.PAYSYS_CLIENT_ID, order.office.bill, order.sum)
+    except Exception, exc:
+        return render(request, "message.html", {"result": "Платежная система недоступна."})
+    
+    if res == False:
+        return render(request, "message.html", {"result": "Ошибка платежной системы."})
+    
+    order.transaction_code = res
+    order.save()
+    return HttpResponseRedirect(settings.PAYSYS_TRANSFER_PAGE + '&transaction=' + res)
+    
+        
 def login(request):
     if request.method == 'POST': 
         form = LoginForm(request.POST) 
@@ -57,14 +90,31 @@ def logout(request):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 def success(request):
-    if 'order' not in request.GET:
+    if 'transaction' not in request.GET:
         return HttpResponse("Недостаточно параметров." + str(request.GET.keys()))
     try:
-        order = Order.objects.get(pk=request.GET['order'])
+        order = Order.objects.get(transaction_code=request.GET['transaction'])
     except:
-        return HttpResponse("Заказ не найден.")
+        return render(request, "message.html", {"result": "Заказ не найден."})
+    
     
     order.pay()
     order.save()
+
+    sendmail(settings.EMAIL, order.office.email, 'pay', str(order.order))
     
     return HttpResponseRedirect(reverse('account:index'))
+
+def cancel_order(request, order_id):
+    try:
+        order = Order.objects.get(pk=order_id)
+    except:
+        return render(request, "message.html", {"result": "Заказ не найден."})
+    
+    order.cancel()
+    order.save()
+
+    sendmail(settings.EMAIL, order.office.email, 'cancel', str(order.order))
+
+    return HttpResponseRedirect(reverse('account:index'))
+    

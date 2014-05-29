@@ -3,10 +3,16 @@ import os
 import sys
 
 nodes = {
-    'center':   {'SYS': 'center_sys', 'PORT': '1301', 'SMTP_PORT': '1401', 'DBNAME': 'rsoi_center_sys'},
-    'office1':  {'SYS': 'office_sys', 'PORT': '1302', 'SMTP_PORT': '1402', 'DBNAME': 'rsoi_office_sys1'},
-    'office2':  {'SYS': 'office_sys', 'PORT': '1303', 'SMTP_PORT': '1403', 'DBNAME': 'rsoi_office_sys2'},
-    'payment':  {'SYS': 'payment_sys', 'PORT': '1304', 'SMTP_PORT': '1404', 'DBNAME': 'rsoi_payment_sys'},
+    'center':   {'SYS': 'center_sys', 'PORT': '1301', 'DBNAME': 'rsoi_center_sys',
+        'EMAIL': 'center@rsoi.ru'},
+        
+    'office1':  {'SYS': 'office_sys', 'PORT': '1302', 'DBNAME': 'rsoi_office_sys1',
+        'EMAIL': 'office1@rsoi.ru', 'PASS': '1234', 'WITH_POP3': '1', 'BILL': '12345678'},
+        
+    'office2':  {'SYS': 'office_sys', 'PORT': '1303', 'DBNAME': 'rsoi_office_sys2',
+        'EMAIL': 'office2@rsoi.ru', 'PASS': '1234', 'WITH_POP3': '1', 'BILL': '87654321'},
+        
+    'payment':  {'SYS': 'payment_sys', 'PORT': '1304', 'DBNAME': 'rsoi_payment_sys'},
 }
 
 def get(param, n=None):
@@ -36,10 +42,12 @@ if __name__ == "__main__":
             cmd = 'start python %s/manage.py runserver %s %s' % (get('SYS', k), get('PORT', k), k)
             os.system(cmd)
             print cmd
-            """
-            cmd = 'start python %s/smtp.py %s %s' % (get('SYS', k), get('SHORT_URL', k), get('SMTP_PORT', k))
-            os.system(cmd)
-            print cmd"""
+            
+            if get('WITH_POP3', k):
+                cmd = 'start python %s/client.py %s' % (get('SYS', k), k)
+                os.system(cmd)
+                print cmd
+                
             print ('%s: http://localhost:%s/' % (k, get('PORT', k)))
             print
     

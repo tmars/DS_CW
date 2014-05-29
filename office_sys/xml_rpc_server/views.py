@@ -50,3 +50,13 @@ def reserve_car(car_id, start_date, end_date):
     order.reserve(car=car, start_date=start_date, end_date=end_date)
     order.save()
     return [order.id, order.sum]
+
+def is_reserved_order(order_id):
+    try:
+        order = Order.objects.get(pk=order_id)
+    except :
+        return False
+    
+    if order.status == 'reserve':
+        return True
+    return False

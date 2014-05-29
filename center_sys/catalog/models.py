@@ -16,6 +16,7 @@ class Order(models.Model):
     sum = models.IntegerField(verbose_name=u'Сумма заказа')
     start_date = models.DateField(verbose_name=u'Начало периода')
     end_date = models.DateField(verbose_name=u'Конец периода')
+    transaction_code = models.CharField(max_length=8, verbose_name=u'Идентификатор транзакции', null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICE, verbose_name=u'Статус')
     
     def reserve(self, car, car_name, start_date, end_date):
@@ -27,6 +28,9 @@ class Order(models.Model):
                 
     def pay(self):
         self.status = 'paid'
+        
+    def cancel(self):
+        self.status = 'cancelled'
         
     def __unicode__(self):
         return "%s (%s)" % (str(self.office), self.order)

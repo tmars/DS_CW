@@ -69,5 +69,11 @@ class Order(models.Model):
             
         self.sum = price * delta.days
         
+    def pay(self):
+        self.status = 'paid'
+        
+    def cancel(self):
+        self.status = 'cancelled'
+        
     def __unicode__(self):
         return "%s [%d]" % (str(self.car), self.car.id)

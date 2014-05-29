@@ -21,7 +21,7 @@ def index(request):
     else:
         start_date = date.today()
         end_date = date.today() + timedelta(days=1)
-        initials = {'offices': [o.name for o in Office.objects.filter(is_active=True)],
+        initials = {'offices': [o.id for o in Office.objects.filter(is_active=True)],
             'start_date': start_date, 'end_date': end_date}
     form = SearchForm(initials)
     if form.is_valid(): 
@@ -79,7 +79,7 @@ def index(request):
     
 def detail(request, office_name, car_id):
     try:
-        office = Office.objects.get(pk=office_name)
+        office = Office.objects.get(name=office_name)
     except Office.DoesNotExist:
         raise Http404
     

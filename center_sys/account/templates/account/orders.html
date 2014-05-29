@@ -27,8 +27,8 @@
             <td>{{ order.sum }}</td>
             <td>
                 {% if order.status == 'reserve' %}
-                <a href="{{ paysys_link }}&bill={{ order.office.bill }}&order={{ order.id }}&amount={{ order.sum }}">оплатить</a>
-                <a>отменить</a>
+                <a href="{% url 'account:pay_order' order.id %}">оплатить</a>
+                <a href="{% url 'account:cancel_order' order.id %}">отменить</a>
                 {% endif %}
             </td>
             

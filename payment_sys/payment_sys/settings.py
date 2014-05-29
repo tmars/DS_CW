@@ -95,3 +95,5 @@ PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 TEMPLATE_DIRS = (
     PROJECT_PATH + '/templates/'
 )
+
+XMLRPC_METHODS = (('account.xml_rpc.create_transaction', 'create_transaction'),)

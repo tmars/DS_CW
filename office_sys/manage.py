@@ -15,7 +15,7 @@ if __name__ == "__main__":
         os.environ.setdefault("NODE_IND", sys.argv.pop(3))
         try:
             rpc_srv = conn.TimeoutServerProxy(task.get("URL", 'center') + 'xmlrpc/', timeout=2)
-            flag = rpc_srv.register_office(task.get("NAME"), task.get("URL"))
+            flag = rpc_srv.register_office(task.get("NAME"), task.get("URL"), task.get("EMAIL"), task.get('BILL'))
             
         except Exception, exp:
             print "Error connection with center: " + str(exp)

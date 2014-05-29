@@ -38,8 +38,34 @@ CREATE TABLE `account_bill` (
 
 LOCK TABLES `account_bill` WRITE;
 /*!40000 ALTER TABLE `account_bill` DISABLE KEYS */;
-INSERT INTO `account_bill` VALUES (1,'12345678',100,'123'),(2,'87654321',663,'123'),(3,'12341234',350,'123');
+INSERT INTO `account_bill` VALUES (1,'12341234',9710,'123'),(2,'12345678',266,'123'),(3,'87654321',1146,'123');
 /*!40000 ALTER TABLE `account_bill` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_client`
+--
+
+DROP TABLE IF EXISTS `account_client`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_client` (
+  `name` varchar(50) NOT NULL,
+  `xmlrpc_page` varchar(50) NOT NULL,
+  `success_page` varchar(50) NOT NULL,
+  `code` varchar(8) NOT NULL,
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_client`
+--
+
+LOCK TABLES `account_client` WRITE;
+/*!40000 ALTER TABLE `account_client` DISABLE KEYS */;
+INSERT INTO `account_client` VALUES ('Центральный офис','http://localhost:1301/xmlrpc/','http://localhost:1301/account/success/','W91U15BX');
+/*!40000 ALTER TABLE `account_client` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -50,17 +76,22 @@ DROP TABLE IF EXISTS `account_transaction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `account_transaction` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sender_id` int(11) NOT NULL,
+  `code` varchar(8) NOT NULL,
+  `sender_id` int(11) DEFAULT NULL,
   `recipient_id` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
   `create_time` datetime NOT NULL,
-  PRIMARY KEY (`id`),
+  `passed_time` datetime DEFAULT NULL,
+  `is_passed` tinyint(1) NOT NULL,
+  `client_id` varchar(8) NOT NULL,
+  PRIMARY KEY (`code`),
   KEY `sender_id_refs_id_f4a38ac8` (`sender_id`),
   KEY `recipient_id_refs_id_f4a38ac8` (`recipient_id`),
+  KEY `client_id_refs_code_d66abcff` (`client_id`),
+  CONSTRAINT `client_id_refs_code_d66abcff` FOREIGN KEY (`client_id`) REFERENCES `account_client` (`code`),
   CONSTRAINT `recipient_id_refs_id_f4a38ac8` FOREIGN KEY (`recipient_id`) REFERENCES `account_bill` (`id`),
   CONSTRAINT `sender_id_refs_id_f4a38ac8` FOREIGN KEY (`sender_id`) REFERENCES `account_bill` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +100,7 @@ CREATE TABLE `account_transaction` (
 
 LOCK TABLES `account_transaction` WRITE;
 /*!40000 ALTER TABLE `account_transaction` DISABLE KEYS */;
-INSERT INTO `account_transaction` VALUES (1,3,2,12,'2014-05-29 00:05:42'),(2,3,2,124,'2014-05-29 00:17:10'),(3,3,2,124,'2014-05-29 00:23:40'),(4,3,2,124,'2014-05-29 00:24:12'),(5,3,2,124,'2014-05-29 00:28:22'),(6,3,2,142,'2014-05-29 00:30:18');
+INSERT INTO `account_transaction` VALUES ('9OJDY1RI',1,2,166,'2014-05-29 16:16:24','2014-05-29 16:16:31',1,'W91U15BX'),('R6GC9WSH',1,3,124,'2014-05-29 14:05:29','2014-05-29 14:05:33',1,'W91U15BX');
 /*!40000 ALTER TABLE `account_transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +216,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$12000$3f8scLspgLzJ$0diZyO87BLkGnNqqKNho0PNBY4Zd8sOKwnKlYUsfmNg=','2014-05-28 23:31:21',1,'marcky','','','t.mars@mail.ru',1,1,'2014-05-28 22:39:28');
+INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$12000$3f8scLspgLzJ$0diZyO87BLkGnNqqKNho0PNBY4Zd8sOKwnKlYUsfmNg=','2014-05-29 16:16:09',1,'marcky','','','t.mars@mail.ru',1,1,'2014-05-28 22:39:28');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -204,8 +235,8 @@ CREATE TABLE `auth_user_groups` (
   UNIQUE KEY `user_id` (`user_id`,`group_id`),
   KEY `auth_user_groups_6340c63c` (`user_id`),
   KEY `auth_user_groups_5f412f9a` (`group_id`),
-  CONSTRAINT `user_id_refs_id_40c41112` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
-  CONSTRAINT `group_id_refs_id_274b862c` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
+  CONSTRAINT `group_id_refs_id_274b862c` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  CONSTRAINT `user_id_refs_id_40c41112` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -233,8 +264,8 @@ CREATE TABLE `auth_user_user_permissions` (
   UNIQUE KEY `user_id` (`user_id`,`permission_id`),
   KEY `auth_user_user_permissions_6340c63c` (`user_id`),
   KEY `auth_user_user_permissions_83d7f98b` (`permission_id`),
-  CONSTRAINT `user_id_refs_id_4dc23c39` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`),
-  CONSTRAINT `permission_id_refs_id_35d9ac25` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`)
+  CONSTRAINT `permission_id_refs_id_35d9ac25` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  CONSTRAINT `user_id_refs_id_4dc23c39` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -268,7 +299,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_37ef4eb4` (`content_type_id`),
   CONSTRAINT `content_type_id_refs_id_93d2d1f8` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `user_id_refs_id_c0d12874` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -277,7 +308,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2014-05-28 23:27:36',1,7,'1','12345678',1,''),(2,'2014-05-28 23:27:45',1,7,'2','87654321',1,''),(3,'2014-05-28 23:28:06',1,7,'3','12341234',1,''),(4,'2014-05-28 23:31:27',1,7,'3','12341234',2,'Изменен csv.'),(5,'2014-05-28 23:31:32',1,7,'2','87654321',2,'Изменен csv.'),(6,'2014-05-28 23:31:37',1,7,'1','12345678',2,'Изменен csv.');
+INSERT INTO `django_admin_log` VALUES (1,'2014-05-28 23:27:36',1,7,'1','12345678',1,''),(2,'2014-05-28 23:27:45',1,7,'2','87654321',1,''),(3,'2014-05-28 23:28:06',1,7,'3','12341234',1,''),(4,'2014-05-28 23:31:27',1,7,'3','12341234',2,'Изменен csv.'),(5,'2014-05-28 23:31:32',1,7,'2','87654321',2,'Изменен csv.'),(6,'2014-05-28 23:31:37',1,7,'1','12345678',2,'Изменен csv.'),(7,'2014-05-29 12:21:04',1,7,'1','12341234',1,''),(8,'2014-05-29 12:21:12',1,7,'2','12345678',1,''),(9,'2014-05-29 12:21:23',1,7,'3','87654321',1,''),(10,'2014-05-29 12:21:31',1,7,'3','87654321',2,'Изменен csv.'),(11,'2014-05-29 13:17:41',1,8,'Y52OXP8L','Y52OXP8L ($110)',3,''),(12,'2014-05-29 13:17:41',1,8,'ILBGZQ4L','ILBGZQ4L ($166)',3,''),(13,'2014-05-29 13:17:41',1,8,'137CJYIX','137CJYIX ($110)',3,''),(14,'2014-05-29 13:47:05',1,9,'W91U15BX','Центральный офис (W91U15BX)',1,''),(15,'2014-05-29 14:00:23',1,9,'W91U15BX','Центральный офис (W91U15BX)',2,'Изменен xmlrpc_page.'),(16,'2014-05-29 14:03:50',1,8,'SJKZTG5O','SJKZTG5O ($166)',3,''),(17,'2014-05-29 14:03:50',1,8,'HO0PSXM4','HO0PSXM4 ($166)',3,''),(18,'2014-05-29 14:03:50',1,8,'3QGRJV1B','3QGRJV1B ($142)',3,''),(19,'2014-05-29 14:03:50',1,8,'0JL32X87','0JL32X87 ($104)',3,''),(20,'2014-05-29 14:05:13',1,7,'1','12341234',2,'Изменен balance.');
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -295,7 +326,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -304,7 +335,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'log entry','admin','logentry'),(2,'permission','auth','permission'),(3,'group','auth','group'),(4,'user','auth','user'),(5,'content type','contenttypes','contenttype'),(6,'session','sessions','session'),(7,'bill','account','bill'),(8,'transaction','account','transaction');
+INSERT INTO `django_content_type` VALUES (1,'log entry','admin','logentry'),(2,'permission','auth','permission'),(3,'group','auth','group'),(4,'user','auth','user'),(5,'content type','contenttypes','contenttype'),(6,'session','sessions','session'),(7,'bill','account','bill'),(8,'transaction','account','transaction'),(9,'client','account','client');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -330,7 +361,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('hotb0xku88hni7ntyq0pzs5u8tnnliy8','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 23:25:09'),('lz2lnlmxcufw31p02d3p2jq7xf73nv78','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 23:31:21'),('xglmuyvznu1kbvhssnvu0pryqnxylm22','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 22:40:09');
+INSERT INTO `django_session` VALUES ('12sodn30pdzc03hd7srgab8qi7ast3zt','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-12 14:05:58'),('du0bogfxggjh538y85qhdm36s8jgecmu','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-12 00:34:36'),('hotb0xku88hni7ntyq0pzs5u8tnnliy8','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 23:25:09'),('kb9ufjlj0rcm8jd4svd6rs7ohilxrbvy','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-12 13:16:19'),('kmso9cilo5vkt7tubdam18yhtkne80zg','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-12 16:16:10'),('lz2lnlmxcufw31p02d3p2jq7xf73nv78','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 23:31:21'),('psec4n4r5m4wk75mmzw6u1vfe03tvly4','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-12 14:04:56'),('qpmp7ovjopjp5tb85ojng7kr3r4fizry','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-12 12:20:43'),('qx1c9ywkzhk3zc476y1a0a9lq03k4anp','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-12 13:43:43'),('tj78ke9zwd8ymzlhwa04ewxsdm9wsndz','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-12 16:05:26'),('xglmuyvznu1kbvhssnvu0pryqnxylm22','YTUzYzFjOWEyZjk5YTUxMjQxMGJmYjA2NmI5NzM4MWM1YTI3NTA1YTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=','2014-06-11 22:40:09');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -343,4 +374,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-29  3:31:13
+-- Dump completed on 2014-05-29 19:18:34

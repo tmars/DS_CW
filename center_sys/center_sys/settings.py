@@ -14,8 +14,12 @@ import os
 os.sys.path.insert(0,os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))) 
 import task
 
-PAYSYS_LOC = task.get('URL', 'payment') + \
-    'tranfer/?success=' + task.get('URL') + 'account/success/'
+PAYSYS_CLIENT_ID = 'W91U15BX'
+PAYSYS_TRANSFER_PAGE = task.get('URL', 'payment') + \
+    'tranfer/?id=' + PAYSYS_CLIENT_ID
+PAYSYS_XMLRPC_PAGE = task.get('URL', 'payment') + 'xmlrpc/'
+
+EMAIL = task.get('EMAIL')
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -90,7 +94,10 @@ USE_L10N = True
 USE_TZ = True
 
 
-XMLRPC_METHODS = (('xml_rpc_server.views.register_office', 'register_office'),)
+XMLRPC_METHODS = (
+    ('xml_rpc_server.views.register_office', 'register_office'),
+    ('xml_rpc_server.views.is_active_transaction', 'is_active_transaction'),
+)
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 

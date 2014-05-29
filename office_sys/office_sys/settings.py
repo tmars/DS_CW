@@ -14,6 +14,9 @@ import os
 os.sys.path.insert(0,os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))) 
 import task
 
+EMAIL = task.get('EMAIL')
+PASSWORD = task.get('PASS')
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -98,4 +101,5 @@ XMLRPC_METHODS = (
     ('xml_rpc_server.views.get_cars', 'get_cars'),
     ('xml_rpc_server.views.get_car', 'get_car'),
     ('xml_rpc_server.views.reserve_car', 'reserve_car'),
+    ('xml_rpc_server.views.is_reserved_order', 'is_reserved_order'),
 )
