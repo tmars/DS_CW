@@ -240,7 +240,7 @@ CREATE TABLE `catalog_order` (
   PRIMARY KEY (`id`),
   KEY `car_id_refs_id_db965695` (`car_id`),
   CONSTRAINT `car_id_refs_id_db965695` FOREIGN KEY (`car_id`) REFERENCES `catalog_car` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,6 +249,7 @@ CREATE TABLE `catalog_order` (
 
 LOCK TABLES `catalog_order` WRITE;
 /*!40000 ALTER TABLE `catalog_order` DISABLE KEYS */;
+INSERT INTO `catalog_order` VALUES (44,1,124,'2014-05-29','2014-05-30','paid','2014-05-29 20:02:18'),(45,2,110,'2014-05-29','2014-05-30','cancelled','2014-05-29 20:08:08'),(46,3,166,'2014-05-29','2014-05-30','cancelled','2014-05-29 20:09:26');
 /*!40000 ALTER TABLE `catalog_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,4 +374,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-29 22:57:32
+-- Dump completed on 2014-05-29 23:11:42
