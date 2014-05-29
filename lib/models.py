@@ -2,7 +2,7 @@
 
 STATUS_CHOICE = (
     ('reserve', u'Зарезервировано'),
-    ('payed', u'Оплачено'),
+    ('paid', u'Оплачено'),
     ('cancelled', u'Отменено'),
 )
 

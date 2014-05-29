@@ -3,12 +3,12 @@ import os
 import sys
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "center_sys.settings")
-    
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "payment_sys.settings")
+
     if sys.argv[1] == 'runserver' and len(sys.argv) > 3:
         os.environ.setdefault("NODE_IND", sys.argv.pop(3))
     else:
-        os.environ.setdefault("NODE_IND", 'center')
+        os.environ.setdefault("NODE_IND", 'payment')
     
     from django.core.management import execute_from_command_line
 

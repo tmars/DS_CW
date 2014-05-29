@@ -12,17 +12,21 @@ class Order(models.Model):
     office = models.ForeignKey(Office, verbose_name=u'Офис заказа')
     order = models.IntegerField(verbose_name=u'Номер заказа')
     car = models.IntegerField(verbose_name=u'Номер машины')
+    car_name = models.CharField(max_length=255,verbose_name=u'Название авто')
     sum = models.IntegerField(verbose_name=u'Сумма заказа')
     start_date = models.DateField(verbose_name=u'Начало периода')
     end_date = models.DateField(verbose_name=u'Конец периода')
     status = models.CharField(max_length=10, choices=STATUS_CHOICE, verbose_name=u'Статус')
     
-    def reserve(self, car, start_date, end_date):
+    def reserve(self, car, car_name, start_date, end_date):
         self.status = 'reserve'
         self.car = car
+        self.car_name = car_name
         self.start_date = start_date
         self.end_date = end_date
                 
+    def pay(self):
+        self.status = 'paid'
         
     def __unicode__(self):
         return "%s (%s)" % (str(self.office), self.order)

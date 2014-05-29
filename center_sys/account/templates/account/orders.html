@@ -6,20 +6,32 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Авто</th>
             <th>Начало периода</th>
             <th>Конец периода</th>
             <th>Офис заказа</th>
             <th>Номер заказа</th>
             <th>Статус заказа</th>
+            <th>Цена</th>
+            <th>Действия</th>
         </tr>
     </thead>
     {% for order in order_list %}
         <tr>
+            <td><a href="{% url 'catalog:detail' order.office order.car %}">{{ order.car_name }}</a></td>
             <td>{{ order.start_date }}</td>
             <td>{{ order.end_date }}</td>
-            <td>{{ order.office }}</td>
-            <td><a href="{% url 'catalog:detail' order.office order.car %}">{{ order.order }}</a></td>
+            <td>{{ order.office.name }}</td>
+            <td>{{ order.order }}</td>
             <td>{{ order.status_name }}</td>
+            <td>{{ order.sum }}</td>
+            <td>
+                {% if order.status == 'reserve' %}
+                <a href="{{ paysys_link }}&bill={{ order.office.bill }}&order={{ order.id }}&amount={{ order.sum }}">оплатить</a>
+                <a>отменить</a>
+                {% endif %}
+            </td>
+            
         </tr>
     {% endfor %}
 </table>

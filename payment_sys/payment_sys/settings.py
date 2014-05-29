@@ -1,5 +1,5 @@
 """
-Django settings for center_sys project.
+Django settings for payment_sys project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -14,16 +14,14 @@ import os
 os.sys.path.insert(0,os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))) 
 import task
 
-PAYSYS_LOC = task.get('URL', 'payment') + \
-    'tranfer/?success=' + task.get('URL') + 'account/success/'
-
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ph4ysr7%mm62nfmgy1&i!u=9^##&%-*w!9guvb4)*de1#v2ur3'
+SECRET_KEY = 'k7e8m$2fwr6&m63@w^7z6+s5m67zx50d+nhdd^(+9yga96v*98'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,10 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'catalog',
     'account',
-    'xml_rpc_server',
-    'bootstrap3_datetime',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,9 +52,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'center_sys.urls'
+ROOT_URLCONF = 'payment_sys.urls'
 
-WSGI_APPLICATION = 'center_sys.wsgi.application'
+WSGI_APPLICATION = 'payment_sys.wsgi.application'
 
 
 # Database
@@ -90,15 +85,12 @@ USE_L10N = True
 USE_TZ = True
 
 
-XMLRPC_METHODS = (('xml_rpc_server.views.register_office', 'register_office'),)
-
-PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = ( 
-    os.path.join(PROJECT_PATH, "static"),
-)
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
 TEMPLATE_DIRS = (
     PROJECT_PATH + '/templates/'

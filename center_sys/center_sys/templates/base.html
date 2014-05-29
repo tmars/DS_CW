@@ -12,9 +12,12 @@
     <div class="container">
     <h1></h1>
     
+    <a href="{% url 'index' %}">Главная</a>
+    <a href="{% url 'catalog:index' %}">Каталог</a>
+    <a href="{% url 'account:index' %}">Профиль</a>
     
     {% if user.is_authenticated %}
-        <p>Добро пожаловать, {{ user.username }}. <a href="{% url 'account:logout' %}">выйти</a></p>
+        <p>Добро пожаловать, <b>{{ user.username }}</b>. <a href="{% url 'account:logout' %}">выйти</a></p>
     {% else %}
         <p>Вы не авторизированы. <a href="{% url 'account:login' %}">войдите</a>.</p>
     {% endif %}

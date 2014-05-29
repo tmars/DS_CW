@@ -125,7 +125,7 @@ def detail(request, office_name, car_id):
             
                 else:
                     order = Order()
-                    order.reserve(car_id, start_date, end_date)
+                    order.reserve(car_id, car['name'], start_date, end_date)
                     order.office = office
                     order.order = int(res[0])
                     order.sum = int(res[1])

@@ -6,6 +6,7 @@ nodes = {
     'center':   {'SYS': 'center_sys', 'PORT': '1301', 'SMTP_PORT': '1401', 'DBNAME': 'rsoi_center_sys'},
     'office1':  {'SYS': 'office_sys', 'PORT': '1302', 'SMTP_PORT': '1402', 'DBNAME': 'rsoi_office_sys1'},
     'office2':  {'SYS': 'office_sys', 'PORT': '1303', 'SMTP_PORT': '1403', 'DBNAME': 'rsoi_office_sys2'},
+    'payment':  {'SYS': 'payment_sys', 'PORT': '1304', 'SMTP_PORT': '1404', 'DBNAME': 'rsoi_payment_sys'},
 }
 
 def get(param, n=None):

@@ -6,13 +6,15 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import auth
 from django.core.urlresolvers import reverse
 from django.forms.util import ErrorList
+from django.conf import settings
 
 from form import LoginForm
 from catalog.models import Order
 
 def index(request):
+    
     if not request.user.is_authenticated():
-        render(request, "message.html", {"result": "Страница для авторизированных пользователей."})
+        return render(request, "message.html", {"result": "Страница для авторизированных пользователей."})
     order_list = Order.objects.filter(user=request.user)
     
     paginator = Paginator(order_list, 8)
@@ -25,7 +27,8 @@ def index(request):
         orders = paginator.page(paginator.num_pages)
     
     return render(request, 'account/orders.html', {
-        'order_list': orders
+        'order_list': orders,
+        'paysys_link': settings.PAYSYS_LOC
     })
     
     
@@ -52,3 +55,16 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+def success(request):
+    if 'order' not in request.GET:
+        return HttpResponse("Недостаточно параметров." + str(request.GET.keys()))
+    try:
+        order = Order.objects.get(pk=request.GET['order'])
+    except:
+        return HttpResponse("Заказ не найден.")
+    
+    order.pay()
+    order.save()
+    
+    return HttpResponseRedirect(reverse('account:index'))
