@@ -2,6 +2,7 @@
 
 from django.db import models
 import os
+from datetime import datetime
 
 from lib.models import BODY_CHOICE, CLASS_CHOICE, BRAND_CHOICE, STATUS_CHOICE, get_choice
     
@@ -51,7 +52,13 @@ class Order(models.Model):
     start_date = models.DateField(verbose_name=u'Начало периода')
     end_date = models.DateField(verbose_name=u'Конец периода')
     status = models.CharField(max_length=10, choices=STATUS_CHOICE, verbose_name=u'Статус')
+    create_time = models.DateTimeField(verbose_name=u'Дата создания')
     
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.create_time = datetime.now()
+        super(Order, self).save(*args, **kwargs)
+        
     def reserve(self, car, start_date, end_date):
         self.start_date = start_date
         self.end_date = end_date

@@ -2,6 +2,7 @@
 
 from django.db import models
 import os
+from datetime import datetime
 
 from lib.models import STATUS_CHOICE, BODY_CHOICE, BRAND_CHOICE, CLASS_CHOICE, get_choice
 from xml_rpc_server.models import Office
@@ -16,9 +17,15 @@ class Order(models.Model):
     sum = models.IntegerField(verbose_name=u'Сумма заказа')
     start_date = models.DateField(verbose_name=u'Начало периода')
     end_date = models.DateField(verbose_name=u'Конец периода')
+    create_time = models.DateTimeField(verbose_name=u'Дата создания')
     transaction_code = models.CharField(max_length=8, verbose_name=u'Идентификатор транзакции', null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICE, verbose_name=u'Статус')
     
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.create_time = datetime.now()
+        super(Order, self).save(*args, **kwargs)
+        
     def reserve(self, car, car_name, start_date, end_date):
         self.status = 'reserve'
         self.car = car

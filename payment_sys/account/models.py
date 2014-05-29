@@ -32,8 +32,8 @@ class Transaction(models.Model):
     sender = models.ForeignKey(Bill, related_name='sender', verbose_name=u'Счет списания', null=True)
     recipient = models.ForeignKey(Bill, related_name='recipient', verbose_name=u'Счет зачисления')
     amount = models.IntegerField(verbose_name=u'Баланс')
-    create_time = models.DateTimeField(verbose_name=u'Дата совершения')
-    passed_time = models.DateTimeField(verbose_name=u'Дата совершения', null=True)
+    create_time = models.DateTimeField(verbose_name=u'Дата создания')
+    passed_time = models.DateTimeField(verbose_name=u'Дата оплаты', null=True)
     is_passed = models.BooleanField(verbose_name=u'Осуществлен')
     client = models.ForeignKey(Client, verbose_name=u'Клиентский сервер')
     

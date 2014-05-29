@@ -24,6 +24,9 @@ def get(param, n=None):
     
     elif param == "URL":
         return 'http://localhost:%s/' % node['PORT']
+    
+    elif param == 'B_URL':
+        return 'http://'+n+'.rsoi.ru/'
         
     elif param == "SHORT_URL":
         return 'localhost'

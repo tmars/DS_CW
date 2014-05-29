@@ -15,7 +15,7 @@ os.sys.path.insert(0,os.path.dirname(os.path.dirname(os.path.dirname(os.path.abs
 import task
 
 PAYSYS_CLIENT_ID = 'W91U15BX'
-PAYSYS_TRANSFER_PAGE = task.get('URL', 'payment') + \
+PAYSYS_TRANSFER_PAGE = task.get('B_URL', 'payment') + \
     'tranfer/?id=' + PAYSYS_CLIENT_ID
 PAYSYS_XMLRPC_PAGE = task.get('URL', 'payment') + 'xmlrpc/'
 

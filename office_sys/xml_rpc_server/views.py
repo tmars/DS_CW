@@ -12,7 +12,7 @@ def car_info(car):
         'id': car.id,
         'name': str(car),
         'tarifs': [car.tarif1, car.tarif2, car.tarif3, car.tarif4],
-        'image': task.get("URL")+ car.image.url[1:],
+        'image': task.get("B_URL")+ car.image.url[1:],
         'class': car.class_name,
         'body': car.body,
     }

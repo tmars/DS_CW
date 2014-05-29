@@ -9,6 +9,7 @@
             <th>Авто</th>
             <th>Начало периода</th>
             <th>Конец периода</th>
+            <th>Дата заказа</th>
             <th>Офис заказа</th>
             <th>Номер заказа</th>
             <th>Статус заказа</th>
@@ -21,6 +22,7 @@
             <td><a href="{% url 'catalog:detail' order.office order.car %}">{{ order.car_name }}</a></td>
             <td>{{ order.start_date }}</td>
             <td>{{ order.end_date }}</td>
+            <td>{{ order.create_time }}</td>
             <td>{{ order.office.name }}</td>
             <td>{{ order.order }}</td>
             <td>{{ order.status_name }}</td>

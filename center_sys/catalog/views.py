@@ -54,7 +54,7 @@ def index(request):
                 car_list.append(car)
                 
         except Exception, exc:
-            errors.append(u"Офис %s не ответил." % office.name)
+            errors.append(u"Офис %s не ответил." % office.name + str(exc))
             office.de_activate()
             pass
     
@@ -91,7 +91,7 @@ def detail(request, office_name, car_id):
         car = rpc_srv.get_car(car_id)
         if car == None:
             return render(request, 'message.html', {'result': 'Информация об авто отсутствует.'})
-    except:
+    except Exception, exc:
         office.de_activate()
         return render(request, 'message.html', {'result': 'Офис не ответил.'})
         
@@ -117,8 +117,8 @@ def detail(request, office_name, car_id):
                 try:
                     rpc_srv = conn.TimeoutServerProxy(office.xmlrpc, timeout=2)
                     res = rpc_srv.reserve_car(car_id, start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d"))
-                except:
-                    return render(request, 'message.html', {'result': 'Офис не ответил.'})
+                except Exception, exc:
+                    return render(request, 'message.html', {'result': 'Офис не ответил.' + str(exc)})
 
                 if res == False:
                     form._errors.setdefault("__all__", ErrorList()).append("Невозможно совершить заказ.")
