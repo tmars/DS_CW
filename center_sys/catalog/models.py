@@ -34,13 +34,22 @@ class Order(models.Model):
         self.end_date = end_date
                 
     def pay(self):
-        self.status = 'paid'
-        
+        if self.status == 'reserve':
+            self.status = 'paid'
+        else:
+            raise Exception('Error state change in Order. (%s -> paid)' % self.status)
+    
     def cancel(self):
-        self.status = 'cancelled'
+        if self.status == 'reserve':
+            self.status = 'cancelled'
+        else:
+            raise Exception('Error state change in Order. (%s -> cancelled)' % self.status)
     
     def close(self):
-        self.status = 'closed'
+        if self.status == 'paid':
+            self.status = 'closed'
+        else:
+            raise Exception('Error state change in Order. (%s -> closed)' % self.status)
         
     def __unicode__(self):
         return "%s (%s)" % (str(self.office), self.order)

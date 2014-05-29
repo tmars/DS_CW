@@ -78,13 +78,22 @@ class Order(models.Model):
         self.sum = price * delta.days
         
     def pay(self):
-        self.status = 'paid'
-        
+        if self.status == 'reserve':
+            self.status = 'paid'
+        else:
+            raise Exception('Error state change in Order. (%s -> paid)' % self.status)
+    
     def cancel(self):
-        self.status = 'cancelled'
-        
+        if self.status == 'reserve':
+            self.status = 'cancelled'
+        else:
+            raise Exception('Error state change in Order. (%s -> cancelled)' % self.status)
+    
     def close(self):
-        self.status = 'closed'
+        if self.status == 'paid':
+            self.status = 'closed'
+        else:
+            raise Exception('Error state change in Order. (%s -> closed)' % self.status)
         
     def is_free(self):
         return self.status in ['cancelled', 'closed']
